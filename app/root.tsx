@@ -1,4 +1,6 @@
-import { cssBundleHref } from "@remix-run/css-bundle";
+import "@radix-ui/themes/styles.css";
+import tailwindStyles from "~/tailwind.css";
+import { Theme } from "@radix-ui/themes";
 import type { LinksFunction } from "@remix-run/node";
 import {
   Links,
@@ -10,7 +12,7 @@ import {
 } from "@remix-run/react";
 
 export const links: LinksFunction = () => [
-  ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
+  { rel: "stylesheet", href: tailwindStyles },
 ];
 
 export default function App() {
@@ -22,12 +24,14 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body>
-        <Outlet />
-        <ScrollRestoration />
-        <Scripts />
-        <LiveReload />
-      </body>
+      <Theme>
+        <body>
+          <Outlet />
+          <ScrollRestoration />
+          <Scripts />
+          <LiveReload />
+        </body>
+      </Theme>
     </html>
   );
 }

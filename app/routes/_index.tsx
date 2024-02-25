@@ -1,9 +1,5 @@
 import type { MetaFunction } from "@remix-run/node";
 import { Typography } from "~/ui/Typography";
-import logoLight from "../../public/logo-light.svg";
-import logoDark from "../../public/logo-dark.svg";
-import { ThemeButton } from "~/ui/ThemeButton";
-import { useTheme } from "remix-themes";
 
 export const meta: MetaFunction = () => {
     return [
@@ -13,14 +9,15 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Index() {
-    const [theme] = useTheme();
     return (
-        <div className="h-screen flex items-center justify-center flex-col gap-4">
-            <img src={theme === "dark" ? logoDark : logoLight} alt="logo" className="w-40 h-40" />
-            <div>
-                <ThemeButton />
-                <Typography.Heading className="text-5xl font-bold">Haakon Svane</Typography.Heading>
-                <Typography.Paragraph>Personal blog to come soon</Typography.Paragraph>
+        <div className="flex grow justify-center">
+            <div className="flex justify-center flex-col gap-4 max-w-lg">
+                <Typography.Heading className="text-5xl font-bold">Welcome</Typography.Heading>
+                <Typography.Paragraph>
+                    This is the website of Haakon Hafsahl Svane. It is both a blog and a project
+                    showcase. Feel free to navigate around and see if there is anything that
+                    interests you.
+                </Typography.Paragraph>
             </div>
         </div>
     );

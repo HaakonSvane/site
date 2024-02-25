@@ -27,7 +27,7 @@ export const ToggleButton = <T, K extends T>({
     };
 
     return (
-        <Button className={tw("flex flex-row gap-2")} onClick={setNextValue}>
+        <Button variant="ghost" className={tw("flex flex-row gap-2")} onClick={setNextValue}>
             {currentValue?.icon && <currentValue.icon />}
             {currentValue?.label}
         </Button>

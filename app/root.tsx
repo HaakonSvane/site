@@ -12,6 +12,7 @@ import {
 
 import { ThemeProvider, useTheme, PreventFlashOnWrongTheme, Theme } from "remix-themes";
 import { themeSessionResolver } from "./sessions.server";
+import { NavBar } from "./ui/NavBar";
 
 type LoaderData = {
     theme: Theme | null;
@@ -38,7 +39,8 @@ function App() {
                 <PreventFlashOnWrongTheme ssrTheme={Boolean(loaderData.theme)} />
                 <Links />
             </head>
-            <body className="bg-background-light dark:bg-background-dark min-h-screen bg-background font-sans text-text-light dark:text-text-dark antialiased">
+            <body className="flex flex-col min-h-screen bg-background-light dark:bg-background-dark bg-background font-sans text-text-light dark:text-text-dark antialiased">
+                <NavBar />
                 <Outlet />
                 <ScrollRestoration />
                 <Scripts />

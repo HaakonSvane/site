@@ -10,6 +10,14 @@ export default {
                 heading: ["Playfair Display", "serif"],
             },
             colors: {
+                primary: {
+                    light: "#455F55",
+                    dark: "#9FBAAF",
+                },
+                secondary: {
+                    light: "#203A46",
+                    dark: "#424861",
+                },
                 background: {
                     light: "#F3F4F7",
                     dark: "#1F222E",

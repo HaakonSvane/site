@@ -11,8 +11,8 @@ export const meta: MetaFunction = () => {
 
 export default function Index() {
     return (
-        <div className="flex grow justify-center">
-            <Container className="flex justify-center flex-col gap-4 max-w-lg">
+        <div className="flex flex-col grow h-full justify-center">
+            <Container className="flex flex-1 justify-center flex-col gap-4 max-w-lg">
                 <Typography.Heading className="text-5xl font-bold">Welcome</Typography.Heading>
                 <Typography.Paragraph>
                     This is the website of Haakon Hafsahl Svane. It is both a blog and a project

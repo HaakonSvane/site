@@ -1,7 +1,7 @@
-import { HTMLAttributes, ReactNode, forwardRef } from "react";
+import { HTMLAttributes, forwardRef } from "react";
 import { tw } from "~/lib/utility";
 
-export type HeadingProps = HTMLAttributes<HTMLHeadingElement> & { children: ReactNode };
+export type HeadingProps = HTMLAttributes<HTMLHeadingElement>;
 
 export const Heading = forwardRef<HTMLHeadingElement, HeadingProps>(
     ({ className, children, ...rest }, ref) => (

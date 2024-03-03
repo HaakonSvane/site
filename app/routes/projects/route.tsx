@@ -1,4 +1,5 @@
 import { MetaFunction } from "@remix-run/node";
+import { Container } from "~/ui/Container";
 import { Typography } from "~/ui/Typography";
 
 export const meta: MetaFunction = () => {
@@ -10,9 +11,9 @@ export const meta: MetaFunction = () => {
 
 const Projects = () => {
     return (
-        <div>
+        <Container>
             <Typography.Paragraph>Projects</Typography.Paragraph>
-        </div>
+        </Container>
     );
 };
 

@@ -39,9 +39,11 @@ function App() {
                 <PreventFlashOnWrongTheme ssrTheme={Boolean(loaderData.theme)} />
                 <Links />
             </head>
-            <body className="flex flex-col min-h-screen bg-background-light dark:bg-background-dark bg-background font-sans text-text-light dark:text-text-dark antialiased">
+            <body className="flex flex-col h-screen bg-background-light dark:bg-background-dark bg-background font-sans text-text-light dark:text-text-dark antialiased">
                 <NavBar />
-                <Outlet />
+                <div className="flex-auto grow">
+                    <Outlet />
+                </div>
                 <ScrollRestoration />
                 <Scripts />
                 <LiveReload />

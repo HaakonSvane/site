@@ -11,5 +11,9 @@ type JsonErrorResponse = Omit<ErrorResponse, "data"> & {
 };
 
 export const isJsonErrorResponse = (value: unknown): value is JsonErrorResponse => {
-    return isRouteErrorResponse(value) && "message" in value && typeof value.message === "string";
+    return (
+        isRouteErrorResponse(value) &&
+        "message" in value.data &&
+        typeof value.data.message === "string"
+    );
 };

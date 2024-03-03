@@ -49,10 +49,47 @@ const BlogPost = () => {
         <Container>
             <Component
                 components={{
-                    h1: props => <Typography.Heading className="text-3xl font-bold" {...props} />,
-                    h2: props => <Typography.Heading className="text-2xl font-bold" {...props} />,
-                    h3: props => <Typography.Heading className="text-xl font-bold" {...props} />,
+                    h1: props => (
+                        <Typography.Heading
+                            className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl"
+                            {...props}
+                        />
+                    ),
+                    h2: props => (
+                        <Typography.Heading
+                            className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0"
+                            {...props}
+                        />
+                    ),
+                    h3: props => (
+                        <Typography.Heading
+                            className="scroll-m-20 text-2xl font-semibold tracking-tight"
+                            {...props}
+                        />
+                    ),
+                    h4: props => (
+                        <Typography.Heading
+                            className="leading-7 [&:not(:first-child)]:mt-6"
+                            {...props}
+                        />
+                    ),
+                    blockquote: props => (
+                        <blockquote className="mt-6 border-l-2 pl-6 italic" {...props} />
+                    ),
                     p: props => <Typography.Paragraph {...props} />,
+                    table: props => <table className="w-full" {...props} />,
+                    tr: props => <tr className="odd:bg-gray-100" {...props} />,
+                    th: props => <th className="m-0 border-t p-0 even:bg-muted" {...props} />,
+                    li: props => <li className="my-6 ml-6 list-disc [&>li]:mt-2" {...props} />,
+                    code: props => (
+                        <code
+                            className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold"
+                            {...props}
+                        />
+                    ),
+                    small: props => (
+                        <small className="text-sm font-medium leading-none" {...props} />
+                    ),
                 }}
             />
         </Container>
@@ -63,26 +100,30 @@ export const ErrorBoundary = () => {
     const error = useRouteError();
     let errorTitle: string;
     let errorDescription: string | undefined;
-
     if (isJsonErrorResponse(error)) {
         errorTitle = error.data.message;
         errorDescription = error.data.details;
+        if (error.data.error?.message) {
+            errorDescription += `\n: ${error.data.error.message}`;
+        }
     } else {
         errorTitle = "An error occurred";
         errorDescription = "An error occurred somewhere in the blog post page";
     }
     return (
-        <Container className="flex gap-x-4 flex-row justify-center align-center">
+        <Container className="flex h-full gap-x-4 flex-row justify-center align-center">
             <div className="flex flex-col justify-center">
-                <Typography.Heading className="text-6xl font-bold">{":("}</Typography.Heading>
+                <Typography.Heading className="text-6xl font-bold whitespace-nowrap">
+                    {":("}
+                </Typography.Heading>
             </div>
 
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2 justify-center">
                 <Typography.Heading className="text-3xl font-bold">{errorTitle}</Typography.Heading>
                 <Typography.Paragraph>{errorDescription}</Typography.Paragraph>
             </div>
 
-            <div className="flex flex-col justify-center">
+            <div className="flex flex-col justify-center whitespace-nowrap">
                 <Typography.Heading className="text-6xl font-bold">{"):"}</Typography.Heading>
             </div>
         </Container>

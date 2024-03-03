@@ -6,10 +6,8 @@ import { bundleMDX } from "./mdx.server";
 // But that's not especially useful to use
 // So we'll declare our own set of properties that we are going to expect to exist
 type Frontmatter = {
-    meta?: {
-        title?: string;
-        description?: string;
-    };
+    title?: string;
+    description?: string;
 };
 
 /**
@@ -20,13 +18,14 @@ type Frontmatter = {
 export async function getPost(slug: string) {
     const filePath = path.join(process.cwd(), "app", "blog-posts", slug + ".mdx");
     const [source] = await Promise.all([readFile(filePath, "utf-8")]);
-
+    const [rehypeHighlight, remarkGfm] = await Promise.all([
+        import("rehype-highlight").then(mod => mod.default),
+        import("remark-gfm").then(mod => mod.default),
+    ]);
     const post = await bundleMDX<Frontmatter>({
         source,
         cwd: process.cwd(),
         esbuildOptions: options => {
-            // Configuration to allow image loading
-            // https://github.com/kentcdodds/mdx-bundler#image-bundling
             options.loader = {
                 ...options.loader,
                 ".png": "dataurl",
@@ -36,8 +35,8 @@ export async function getPost(slug: string) {
             return options;
         },
         mdxOptions: options => {
-            // options.remarkPlugins = [...(options.remarkPlugins ?? []), remarkGfm];
-            // options.rehypePlugins = [...(options.rehypePlugins ?? []), rehypeHighlight];
+            options.remarkPlugins = [...(options.remarkPlugins ?? []), remarkGfm];
+            options.rehypePlugins = [...(options.rehypePlugins ?? []), rehypeHighlight];
             return options;
         },
     });

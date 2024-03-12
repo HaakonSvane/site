@@ -47,51 +47,53 @@ const BlogPost = () => {
     const Component = useMemo(() => getMDXComponent(code), [code]);
     return (
         <Container>
-            <Component
-                components={{
-                    h1: props => (
-                        <Typography.Heading
-                            className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl"
-                            {...props}
-                        />
-                    ),
-                    h2: props => (
-                        <Typography.Heading
-                            className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0"
-                            {...props}
-                        />
-                    ),
-                    h3: props => (
-                        <Typography.Heading
-                            className="scroll-m-20 text-2xl font-semibold tracking-tight"
-                            {...props}
-                        />
-                    ),
-                    h4: props => (
-                        <Typography.Heading
-                            className="leading-7 [&:not(:first-child)]:mt-6"
-                            {...props}
-                        />
-                    ),
-                    blockquote: props => (
-                        <blockquote className="mt-6 border-l-2 pl-6 italic" {...props} />
-                    ),
-                    p: props => <Typography.Paragraph {...props} />,
-                    table: props => <table className="w-full" {...props} />,
-                    tr: props => <tr className="odd:bg-gray-100" {...props} />,
-                    th: props => <th className="m-0 border-t p-0 even:bg-muted" {...props} />,
-                    li: props => <li className="my-6 ml-6 list-disc [&>li]:mt-2" {...props} />,
-                    code: props => (
-                        <code
-                            className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold"
-                            {...props}
-                        />
-                    ),
-                    small: props => (
-                        <small className="text-sm font-medium leading-none" {...props} />
-                    ),
-                }}
-            />
+            <article>
+                <Component
+                    components={{
+                        h1: props => (
+                            <Typography.Heading
+                                className="[&:not(:first-child)]:mt-6 scroll-m-20 border-b pb-2 mb-6 text-4xl font-bold tracking-tight lg:text-5xl"
+                                {...props}
+                            />
+                        ),
+                        h2: props => (
+                            <Typography.Heading
+                                className="[&:not(:first-child)]:mt-6 scroll-m-20 pb-0 mb-0 text-3xl font-extrabold tracking-tight first:mt-0"
+                                {...props}
+                            />
+                        ),
+                        h3: props => (
+                            <Typography.Heading
+                                className="[&:not(:first-child)]:mt-6 scroll-m-20 text-2xl font-semibold tracking-tight"
+                                {...props}
+                            />
+                        ),
+                        h4: props => (
+                            <Typography.Heading
+                                className="[&:not(:first-child)]:mt-6 leading-7"
+                                {...props}
+                            />
+                        ),
+                        blockquote: props => (
+                            <blockquote className="mt-6 border-l-2 pl-6 italic" {...props} />
+                        ),
+                        p: props => <Typography.Paragraph className="leading-7" {...props} />,
+                        table: props => <table className="w-full" {...props} />,
+                        tr: props => <tr className="odd:bg-gray-100" {...props} />,
+                        th: props => <th className="m-0 border-t p-0 even:bg-muted" {...props} />,
+                        li: props => <li className="my-4 ml-6 list-disc [&>li]:mt-2" {...props} />,
+                        code: props => (
+                            <code
+                                className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold"
+                                {...props}
+                            />
+                        ),
+                        small: props => (
+                            <small className="text-sm font-medium leading-none" {...props} />
+                        ),
+                    }}
+                />
+            </article>
         </Container>
     );
 };

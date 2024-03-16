@@ -1,5 +1,5 @@
 import { MetaFunction, json } from "@remix-run/node";
-import { Link, useLoaderData, useNavigate } from "@remix-run/react";
+import { useLoaderData, useNavigate } from "@remix-run/react";
 import { getPosts } from "~/lib/server/blogPost.server";
 import { Container } from "~/ui/Container";
 import { Typography } from "~/ui/Typography";

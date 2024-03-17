@@ -32,7 +32,7 @@ const Blog = () => {
                         (e.key === "Enter" || e.key === " ") && navigate(`/blog/${post.slug}`)
                     }
                     onClick={() => navigate(`/blog/${post.slug}`)}
-                    className="flex flex-col cursor-pointer hover:brightness-200 dark:hover:brightness-50 gap-y-2 p-4 rounded-xl border border-text-light dark:border-text-dark transition-colors focus-visible:ring-offset-2"
+                    className="flex flex-col cursor-pointer hover:brightness-200 dark:hover:brightness-50 gap-y-2 p-4 rounded-xl border border-border-light dark:border-border-dark transition-colors focus-visible:ring-offset-2"
                 >
                     <Typography.Heading className="text-2xl font-semibold">
                         {post.frontmatter.title}

@@ -22,6 +22,14 @@ export default {
                     light: "#F3F4F7",
                     dark: "#1F222E",
                 },
+                muted: {
+                    light: "#D9DBDE",
+                    dark: "#525A7A",
+                },
+                border: {
+                    light: "#C0C1C4",
+                    dark: "#414761",
+                },
                 text: {
                     light: "#172A33",
                     dark: "#F3F4F7",

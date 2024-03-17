@@ -6,7 +6,7 @@ import { Typography } from "~/ui/Typography";
 
 export const meta: MetaFunction = () => {
     return [
-        { title: "Haakon Svane - Blog posts" },
+        { title: "Blog posts | Haakon Svane" },
         { name: "description", content: "Haakon Svane's blog posts" },
     ];
 };

@@ -1,4 +1,4 @@
-import { LoaderFunctionArgs, json } from "@remix-run/node";
+import { LoaderFunctionArgs, MetaFunction, json } from "@remix-run/node";
 import { useLoaderData, useRouteError } from "@remix-run/react";
 import { getMDXComponent } from "mdx-bundler/client/index.js";
 import { useMemo } from "react";
@@ -40,6 +40,13 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
             { status: 500 },
         );
     }
+};
+
+export const meta: MetaFunction<typeof loader> = ({ data }) => {
+    return [
+        { title: `${data?.frontmatter.title ?? "Post"} | Haakon Svane` },
+        { name: "description", content: "Personal site for Haakon Svane" },
+    ];
 };
 
 const BlogPost = () => {

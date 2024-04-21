@@ -1,4 +1,5 @@
 import tailwindStyles from "~/tailwind.css";
+import { Analytics } from "@vercel/analytics/react";
 import type { LinksFunction, LoaderFunction } from "@remix-run/node";
 import {
     Links,
@@ -35,6 +36,7 @@ function App() {
             <head>
                 <meta charSet="utf-8" />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
+                <Analytics />
                 <Meta />
                 <PreventFlashOnWrongTheme ssrTheme={Boolean(loaderData.theme)} />
                 <Links />

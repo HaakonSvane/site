@@ -9,6 +9,11 @@ type MetaFile = {
     startDate: Date;
 };
 
+type ProjectPostFrontmatter = {
+    tags: string[];
+    title: string[];
+}
+
 export async function getProjects() {
     const dirPath = path.join(process.cwd(), "app", "projects");
 
@@ -40,7 +45,7 @@ export async function getProjects() {
 export async function getProject(projectSlug: string) {
     const projectPath = path.join(process.cwd(), "app", "projects", projectSlug);
     const metaPath = path.join(projectPath, "_meta.mdx");
-
+    const allDirents = await readdir(projectPath, {withFileTypes: true});
     const [source] = await Promise.all([readFile(metaPath, "utf-8")]);
     const [rehypeHighlight, remarkGfm] = await Promise.all([
         import("rehype-highlight").then(mod => mod.default),
@@ -73,5 +78,43 @@ export async function getProject(projectSlug: string) {
             ...frontmatter,
             image: resolvedImagePath,
         } satisfies MetaFile,
+    };
+}
+
+export async function getProjectPost(projectSlug: string, postSlug: string) {
+    const filePath = path.join(process.cwd(), "app", "projects", projectSlug, postSlug);
+
+    const [source] = await Promise.all([readFile(filePath, "utf-8")]);
+    const [rehypeHighlight, remarkGfm] = await Promise.all([
+        import("rehype-highlight").then(mod => mod.default),
+        import("remark-gfm").then(mod => mod.default),
+    ]);
+    const { code, frontmatter } = await bundleMDX<ProjectPostFrontmatter>({
+        source,
+        cwd: process.cwd(),
+        esbuildOptions: options => {
+            options.loader = {
+                ...options.loader,
+                ".png": "dataurl",
+                ".gif": "dataurl",
+            };
+
+            return options;
+        },
+        mdxOptions: options => {
+            options.remarkPlugins = [...(options.remarkPlugins ?? []), remarkGfm];
+            options.rehypePlugins = [...(options.rehypePlugins ?? []), rehypeHighlight];
+            return options;
+        },
+    });
+    const resolvedImagePath = frontmatter.image
+        ? path.join(projectPath, frontmatter.image)
+        : undefined;
+    return {
+        code,
+        frontmatter: {
+            ...frontmatter,
+        } satisfies MetaFile,
+        metaFile:
     };
 }

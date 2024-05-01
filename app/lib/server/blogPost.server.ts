@@ -5,7 +5,7 @@ import { bundleMDX } from "./mdx.server";
 // The frontmatter can be any set of key values
 // But that's not especially useful to use
 // So we'll declare our own set of properties that we are going to expect to exist
-type Frontmatter = {
+type BlogPostFrontmatter = {
     title?: string;
     description?: string;
 };
@@ -22,7 +22,7 @@ export async function getPost(slug: string) {
         import("rehype-highlight").then(mod => mod.default),
         import("remark-gfm").then(mod => mod.default),
     ]);
-    const post = await bundleMDX<Frontmatter>({
+    const post = await bundleMDX<BlogPostFrontmatter>({
         source,
         cwd: process.cwd(),
         esbuildOptions: options => {
@@ -64,7 +64,7 @@ export async function getPosts() {
         postsPath.map(async dirent => {
             const postPath = path.join(filePath, dirent.name);
             const [file] = await Promise.all([readFile(postPath)]);
-            const { frontmatter } = await bundleMDX<Frontmatter>({
+            const { frontmatter } = await bundleMDX<BlogPostFrontmatter>({
                 source: file.toString(),
                 cwd: process.cwd(),
             });

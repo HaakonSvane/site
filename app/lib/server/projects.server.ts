@@ -45,12 +45,13 @@ export async function getProjects() {
 export async function getProject(projectSlug: string) {
     const projectPath = path.join(process.cwd(), "app", "projects", projectSlug);
     const metaPath = path.join(projectPath, "_meta.mdx");
-    const allDirents = await readdir(projectPath, {withFileTypes: true});
+    const allPaths = await readdir(projectPath, {withFileTypes: true});
     const [source] = await Promise.all([readFile(metaPath, "utf-8")]);
     const [rehypeHighlight, remarkGfm] = await Promise.all([
         import("rehype-highlight").then(mod => mod.default),
         import("remark-gfm").then(mod => mod.default),
     ]);
+    const 
     const { code, frontmatter } = await bundleMDX<MetaFile>({
         source,
         cwd: process.cwd(),

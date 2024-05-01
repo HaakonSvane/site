@@ -25,7 +25,7 @@ const Projects = () => {
             <Typography.Paragraph>Projects</Typography.Paragraph>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {projects.map(project => (
-                    <Card.Link to={`projects/${project.slug}`} key={project.slug}>
+                    <Card.Link to={`${project.slug}`} key={project.slug}>
                         <Card.Header>
                             <Card.Title>{project.meta.name}</Card.Title>
                             <div className="flex flex-row gap-x-4">

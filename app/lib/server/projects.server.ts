@@ -36,3 +36,42 @@ export async function getProjects() {
     );
     return projects;
 }
+
+export async function getProject(projectSlug: string) {
+    const projectPath = path.join(process.cwd(), "app", "projects", projectSlug);
+    const metaPath = path.join(projectPath, "_meta.mdx");
+
+    const [source] = await Promise.all([readFile(metaPath, "utf-8")]);
+    const [rehypeHighlight, remarkGfm] = await Promise.all([
+        import("rehype-highlight").then(mod => mod.default),
+        import("remark-gfm").then(mod => mod.default),
+    ]);
+    const { code, frontmatter } = await bundleMDX<MetaFile>({
+        source,
+        cwd: process.cwd(),
+        esbuildOptions: options => {
+            options.loader = {
+                ...options.loader,
+                ".png": "dataurl",
+                ".gif": "dataurl",
+            };
+
+            return options;
+        },
+        mdxOptions: options => {
+            options.remarkPlugins = [...(options.remarkPlugins ?? []), remarkGfm];
+            options.rehypePlugins = [...(options.rehypePlugins ?? []), rehypeHighlight];
+            return options;
+        },
+    });
+    const resolvedImagePath = frontmatter.image
+        ? path.join(projectPath, frontmatter.image)
+        : undefined;
+    return {
+        code,
+        frontmatter: {
+            ...frontmatter,
+            image: resolvedImagePath,
+        } satisfies MetaFile,
+    };
+}

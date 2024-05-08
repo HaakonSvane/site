@@ -11,6 +11,7 @@ import {
     useLoaderData,
 } from "@remix-run/react";
 
+import { ApolloClient, ApolloProvider, InMemoryCache, createHttpLink } from "@apollo/client";
 import { ThemeProvider, useTheme, PreventFlashOnWrongTheme, Theme } from "remix-themes";
 import { themeSessionResolver } from "./sessions.server";
 import { NavBar } from "./ui/NavBar";
@@ -28,6 +29,17 @@ export const loader: LoaderFunction = async ({ request }) => {
 
 export const links: LinksFunction = () => [{ rel: "stylesheet", href: tailwindStyles }];
 
+const graphQLClient = new ApolloClient({
+    ssrMode: true, // Indicates that we want to use server side rendering
+    link: createHttpLink({
+        uri: process.env.CONTENTFUL_GQL_URL,
+        headers: {
+            "Access-Control-Allow-Origin": "*",
+        },
+    }),
+    cache: new InMemoryCache(),
+});
+
 function App() {
     const loaderData = useLoaderData<LoaderData>();
     const [theme] = useTheme();
@@ -42,13 +54,15 @@ function App() {
                 <Links />
             </head>
             <body className="flex flex-col min-h-screen bg-background-light dark:bg-background-dark bg-background font-sans text-text-light dark:text-text-dark antialiased">
-                <NavBar />
-                <div className="flex flex-1">
-                    <Outlet />
-                </div>
-                <ScrollRestoration />
-                <Scripts />
-                <LiveReload />
+                <ApolloProvider client={graphQLClient}>
+                    <NavBar />
+                    <div className="flex flex-1">
+                        <Outlet />
+                    </div>
+                    <ScrollRestoration />
+                    <Scripts />
+                    <LiveReload />
+                </ApolloProvider>
             </body>
         </html>
     );

@@ -1,6 +1,12 @@
 import { LoaderFunctionArgs, json } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
+import { getMDXComponent } from "mdx-bundler/client/index.js";
+import { useMemo } from "react";
+import { postComponents } from "~/lib/postComponents";
 import { getProject } from "~/lib/server/projects.server";
 import { JsonErrorResponsePayload } from "~/lib/utility/errorResponse";
+import { Container } from "~/ui/Container";
+import { Typography } from "~/ui/Typography";
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
     const projectSlug = params.project;
@@ -13,8 +19,8 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
             { status: 400 },
         );
     try {
-        const post = await getProject(projectSlug);
-        if (!post) {
+        const project = await getProject(projectSlug);
+        if (!project) {
             throw json<JsonErrorResponsePayload>(
                 {
                     message: "Project not found",
@@ -24,8 +30,7 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
                 { status: 404 },
             );
         }
-        const { frontmatter, code } = post;
-        return json({ frontmatter, code });
+        return json(project);
     } catch (error) {
         throw json<JsonErrorResponsePayload>(
             {
@@ -37,3 +42,25 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
         );
     }
 };
+
+export default function Project() {
+    const project = useLoaderData<typeof loader>();
+    const Component = useMemo(() => getMDXComponent(project.description), [project.description]);
+    return (
+        <Container className="flex flex-1 flex-col gap-y-8">
+            <div className="flex flex-row gap-x-4 items-center">
+                {project.leadImage?.url && (
+                    <img
+                        src={project.leadImage.url}
+                        alt={project.leadImage?.title ?? "Project image"}
+                        className="w-16 h-16"
+                    />
+                )}
+                <Typography.Heading className="text-4xl font-bold">
+                    {project.title}
+                </Typography.Heading>
+            </div>
+            <Component components={postComponents} />
+        </Container>
+    );
+}

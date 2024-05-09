@@ -1,9 +1,7 @@
-import { readFile, readdir } from "./fs.server";
-import path from "path";
-import { bundleMDX } from "./mdx.server";
 import { gql } from "urql";
-import { qlQuery } from "./graphql.server";
 import { Project } from "~/graphql/graphql";
+import { qlQuery } from "./graphql.server";
+import { bundleMDX } from "./mdx.server";
 
 const GET_PROJECT_QUERY = gql(`
     query GetProjectQuery($slug: String!) {

@@ -1,6 +1,9 @@
 import { MetaFunction, json } from "@remix-run/node";
-import { useLoaderData, useNavigate } from "@remix-run/react";
-import { getPosts } from "~/lib/server/blogPost.server";
+import { useLoaderData } from "@remix-run/react";
+import { gql } from "~/graphql";
+import { BlogPost } from "~/graphql/graphql";
+import { qlQuery } from "~/lib/server/graphql.server";
+import { Card } from "~/ui/Card";
 import { Container } from "~/ui/Container";
 import { Typography } from "~/ui/Typography";
 
@@ -11,34 +14,49 @@ export const meta: MetaFunction = () => {
     ];
 };
 
+const GET_POSTS_QUERY = gql(`
+    query GetPostsQuery {
+        blogPostCollection {
+            items {
+                title
+                slug
+                synopsis
+                leadImage {
+                    title
+                    url
+                }
+            }
+        }
+    }
+`);
+
 export const loader = async () => {
-    const posts = await getPosts();
+    const queryResult = await qlQuery(GET_POSTS_QUERY, {});
+    const posts = (queryResult.data?.blogPostCollection?.items ?? []) as BlogPost[];
     return json(posts);
 };
 
 const Blog = () => {
     const posts = useLoaderData<typeof loader>();
-    const navigate = useNavigate();
-
     return (
         <Container className="flex flex-1 flex-col gap-y-4">
             <Typography.Heading className="text-3xl font-bold">Blog posts</Typography.Heading>
             {posts.map(post => (
-                <div
-                    role="link"
-                    key={post.slug}
-                    tabIndex={0}
-                    onKeyUp={e =>
-                        (e.key === "Enter" || e.key === " ") && navigate(`/blog/${post.slug}`)
-                    }
-                    onClick={() => navigate(`/blog/${post.slug}`)}
-                    className="flex flex-col cursor-pointer hover:brightness-200 dark:hover:brightness-50 gap-y-2 p-4 rounded-xl border border-border-light dark:border-border-dark transition-colors focus-visible:ring-offset-2"
-                >
-                    <Typography.Heading className="text-2xl font-semibold">
-                        {post.frontmatter.title}
-                    </Typography.Heading>
-                    <Typography.Paragraph>{post.frontmatter.description}</Typography.Paragraph>
-                </div>
+                <Card.Link to={`${post.slug}`} key={post.slug}>
+                    <Card.Header>
+                        <Card.Title>{post.title}</Card.Title>
+                        <div className="flex flex-row gap-x-4">
+                            {post.leadImage?.url && (
+                                <img
+                                    src={post.leadImage.url}
+                                    alt={post.leadImage.title ?? "Blog post image"}
+                                    className="w-12 h-12"
+                                />
+                            )}
+                            <Card.Description>{post.synopsis}</Card.Description>
+                        </div>
+                    </Card.Header>
+                </Card.Link>
             ))}
         </Container>
     );

@@ -1,5 +1,3 @@
-import tailwindStyles from "~/tailwind.css";
-import { Analytics } from "@vercel/analytics/react";
 import type { LinksFunction, LoaderFunction } from "@remix-run/node";
 import {
     Links,
@@ -10,15 +8,12 @@ import {
     ScrollRestoration,
     useLoaderData,
 } from "@remix-run/react";
+import { Analytics } from "@vercel/analytics/react";
+import tailwindStyles from "~/tailwind.css";
 
-import { ApolloClient, ApolloProvider, InMemoryCache, createHttpLink } from "@apollo/client";
-import { ThemeProvider, useTheme, PreventFlashOnWrongTheme, Theme } from "remix-themes";
+import { PreventFlashOnWrongTheme, ThemeProvider, useTheme } from "remix-themes";
 import { themeSessionResolver } from "./sessions.server";
 import { NavBar } from "./ui/NavBar";
-
-type LoaderData = {
-    theme: Theme | null;
-};
 
 export const loader: LoaderFunction = async ({ request }) => {
     const { getTheme } = await themeSessionResolver(request);
@@ -27,18 +22,9 @@ export const loader: LoaderFunction = async ({ request }) => {
     };
 };
 
-export const links: LinksFunction = () => [{ rel: "stylesheet", href: tailwindStyles }];
+type LoaderData = typeof loader;
 
-const graphQLClient = new ApolloClient({
-    ssrMode: true, // Indicates that we want to use server side rendering
-    link: createHttpLink({
-        uri: process.env.CONTENTFUL_GQL_URL,
-        headers: {
-            "Access-Control-Allow-Origin": "*",
-        },
-    }),
-    cache: new InMemoryCache(),
-});
+export const links: LinksFunction = () => [{ rel: "stylesheet", href: tailwindStyles }];
 
 function App() {
     const loaderData = useLoaderData<LoaderData>();
@@ -54,15 +40,13 @@ function App() {
                 <Links />
             </head>
             <body className="flex flex-col min-h-screen bg-background-light dark:bg-background-dark bg-background font-sans text-text-light dark:text-text-dark antialiased">
-                <ApolloProvider client={graphQLClient}>
-                    <NavBar />
-                    <div className="flex flex-1">
-                        <Outlet />
-                    </div>
-                    <ScrollRestoration />
-                    <Scripts />
-                    <LiveReload />
-                </ApolloProvider>
+                <NavBar />
+                <div className="flex flex-1">
+                    <Outlet />
+                </div>
+                <ScrollRestoration />
+                <Scripts />
+                <LiveReload />
             </body>
         </html>
     );

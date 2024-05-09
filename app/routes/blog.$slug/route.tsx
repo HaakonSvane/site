@@ -4,7 +4,6 @@ import { getMDXComponent } from "mdx-bundler/client/index.js";
 import { useMemo } from "react";
 import { postComponents } from "~/lib/postComponents";
 import { getPost } from "~/lib/server/blogPost.server";
-import { tw } from "~/lib/utility";
 import { JsonErrorResponsePayload, isJsonErrorResponse } from "~/lib/utility/errorResponse";
 import { Container } from "~/ui/Container";
 import { Typography } from "~/ui/Typography";

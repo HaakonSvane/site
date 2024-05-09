@@ -436,9 +436,11 @@ export type Project = Entry & {
   __typename?: 'Project';
   contentfulMetadata: ContentfulMetadata;
   description?: Maybe<Scalars['String']['output']>;
+  githubUrl?: Maybe<Scalars['String']['output']>;
   leadImage?: Maybe<Asset>;
   linkedFrom?: Maybe<ProjectLinkingCollections>;
   postsCollection?: Maybe<ProjectPostsCollection>;
+  siteUrl?: Maybe<Scalars['String']['output']>;
   slug?: Maybe<Scalars['String']['output']>;
   synopsis?: Maybe<Scalars['String']['output']>;
   sys: Sys;
@@ -447,6 +449,11 @@ export type Project = Entry & {
 
 
 export type ProjectDescriptionArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type ProjectGithubUrlArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -469,6 +476,11 @@ export type ProjectPostsCollectionArgs = {
   preview?: InputMaybe<Scalars['Boolean']['input']>;
   skip?: InputMaybe<Scalars['Int']['input']>;
   where?: InputMaybe<ProjectPostFilter>;
+};
+
+
+export type ProjectSiteUrlArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -505,9 +517,23 @@ export type ProjectFilter = {
   description_not?: InputMaybe<Scalars['String']['input']>;
   description_not_contains?: InputMaybe<Scalars['String']['input']>;
   description_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  githubUrl?: InputMaybe<Scalars['String']['input']>;
+  githubUrl_contains?: InputMaybe<Scalars['String']['input']>;
+  githubUrl_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  githubUrl_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  githubUrl_not?: InputMaybe<Scalars['String']['input']>;
+  githubUrl_not_contains?: InputMaybe<Scalars['String']['input']>;
+  githubUrl_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   leadImage_exists?: InputMaybe<Scalars['Boolean']['input']>;
   posts?: InputMaybe<CfProjectPostNestedFilter>;
   postsCollection_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  siteUrl?: InputMaybe<Scalars['String']['input']>;
+  siteUrl_contains?: InputMaybe<Scalars['String']['input']>;
+  siteUrl_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  siteUrl_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  siteUrl_not?: InputMaybe<Scalars['String']['input']>;
+  siteUrl_not_contains?: InputMaybe<Scalars['String']['input']>;
+  siteUrl_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   slug?: InputMaybe<Scalars['String']['input']>;
   slug_contains?: InputMaybe<Scalars['String']['input']>;
   slug_exists?: InputMaybe<Scalars['Boolean']['input']>;
@@ -571,6 +597,10 @@ export enum ProjectLinkingCollectionsProjectPostCollectionOrder {
 }
 
 export enum ProjectOrder {
+  GithubUrlAsc = 'githubUrl_ASC',
+  GithubUrlDesc = 'githubUrl_DESC',
+  SiteUrlAsc = 'siteUrl_ASC',
+  SiteUrlDesc = 'siteUrl_DESC',
   SlugAsc = 'slug_ASC',
   SlugDesc = 'slug_DESC',
   SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
@@ -593,6 +623,7 @@ export type ProjectPost = Entry & {
   linkedFrom?: Maybe<ProjectPostLinkingCollections>;
   project?: Maybe<Project>;
   slug?: Maybe<Scalars['String']['output']>;
+  synopsis?: Maybe<Scalars['String']['output']>;
   sys: Sys;
   title?: Maybe<Scalars['String']['output']>;
 };
@@ -622,6 +653,11 @@ export type ProjectPostProjectArgs = {
 
 
 export type ProjectPostSlugArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type ProjectPostSynopsisArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -659,6 +695,13 @@ export type ProjectPostFilter = {
   slug_not?: InputMaybe<Scalars['String']['input']>;
   slug_not_contains?: InputMaybe<Scalars['String']['input']>;
   slug_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  synopsis?: InputMaybe<Scalars['String']['input']>;
+  synopsis_contains?: InputMaybe<Scalars['String']['input']>;
+  synopsis_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  synopsis_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  synopsis_not?: InputMaybe<Scalars['String']['input']>;
+  synopsis_not_contains?: InputMaybe<Scalars['String']['input']>;
+  synopsis_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   sys?: InputMaybe<SysFilter>;
   title?: InputMaybe<Scalars['String']['input']>;
   title_contains?: InputMaybe<Scalars['String']['input']>;
@@ -693,6 +736,10 @@ export type ProjectPostLinkingCollectionsProjectCollectionArgs = {
 };
 
 export enum ProjectPostLinkingCollectionsProjectCollectionOrder {
+  GithubUrlAsc = 'githubUrl_ASC',
+  GithubUrlDesc = 'githubUrl_DESC',
+  SiteUrlAsc = 'siteUrl_ASC',
+  SiteUrlDesc = 'siteUrl_DESC',
   SlugAsc = 'slug_ASC',
   SlugDesc = 'slug_DESC',
   SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
@@ -906,8 +953,22 @@ export type CfProjectNestedFilter = {
   description_not?: InputMaybe<Scalars['String']['input']>;
   description_not_contains?: InputMaybe<Scalars['String']['input']>;
   description_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  githubUrl?: InputMaybe<Scalars['String']['input']>;
+  githubUrl_contains?: InputMaybe<Scalars['String']['input']>;
+  githubUrl_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  githubUrl_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  githubUrl_not?: InputMaybe<Scalars['String']['input']>;
+  githubUrl_not_contains?: InputMaybe<Scalars['String']['input']>;
+  githubUrl_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   leadImage_exists?: InputMaybe<Scalars['Boolean']['input']>;
   postsCollection_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  siteUrl?: InputMaybe<Scalars['String']['input']>;
+  siteUrl_contains?: InputMaybe<Scalars['String']['input']>;
+  siteUrl_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  siteUrl_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  siteUrl_not?: InputMaybe<Scalars['String']['input']>;
+  siteUrl_not_contains?: InputMaybe<Scalars['String']['input']>;
+  siteUrl_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   slug?: InputMaybe<Scalars['String']['input']>;
   slug_contains?: InputMaybe<Scalars['String']['input']>;
   slug_exists?: InputMaybe<Scalars['Boolean']['input']>;
@@ -952,6 +1013,13 @@ export type CfProjectPostNestedFilter = {
   slug_not?: InputMaybe<Scalars['String']['input']>;
   slug_not_contains?: InputMaybe<Scalars['String']['input']>;
   slug_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  synopsis?: InputMaybe<Scalars['String']['input']>;
+  synopsis_contains?: InputMaybe<Scalars['String']['input']>;
+  synopsis_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  synopsis_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  synopsis_not?: InputMaybe<Scalars['String']['input']>;
+  synopsis_not_contains?: InputMaybe<Scalars['String']['input']>;
+  synopsis_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   sys?: InputMaybe<SysFilter>;
   title?: InputMaybe<Scalars['String']['input']>;
   title_contains?: InputMaybe<Scalars['String']['input']>;
@@ -974,12 +1042,19 @@ export type GetProjectQueryQueryVariables = Exact<{
 }>;
 
 
-export type GetProjectQueryQuery = { __typename?: 'Query', projectCollection?: { __typename?: 'ProjectCollection', items: Array<{ __typename?: 'Project', title?: string | null, description?: string | null, leadImage?: { __typename?: 'Asset', url?: string | null, title?: string | null } | null } | null> } | null };
+export type GetProjectQueryQuery = { __typename?: 'Query', projectCollection?: { __typename?: 'ProjectCollection', items: Array<{ __typename?: 'Project', title?: string | null, description?: string | null, siteUrl?: string | null, githubUrl?: string | null, leadImage?: { __typename?: 'Asset', url?: string | null, title?: string | null } | null } | null> } | null };
 
 export type GetPostsQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetPostsQueryQuery = { __typename?: 'Query', blogPostCollection?: { __typename?: 'BlogPostCollection', items: Array<{ __typename?: 'BlogPost', title?: string | null, slug?: string | null, synopsis?: string | null, leadImage?: { __typename?: 'Asset', title?: string | null, url?: string | null } | null } | null> } | null };
+
+export type GetProjectPostsQueryQueryVariables = Exact<{
+  projectSlug: Scalars['String']['input'];
+}>;
+
+
+export type GetProjectPostsQueryQuery = { __typename?: 'Query', projectPostCollection?: { __typename?: 'ProjectPostCollection', items: Array<{ __typename?: 'ProjectPost', title?: string | null, slug?: string | null, synopsis?: string | null, leadImage?: { __typename?: 'Asset', title?: string | null, url?: string | null } | null } | null> } | null };
 
 export type GetProjectsQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -988,6 +1063,7 @@ export type GetProjectsQueryQuery = { __typename?: 'Query', projectCollection?: 
 
 
 export const GetPostQueryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetPostQuery"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"slug"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"blogPostCollection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"slug"},"value":{"kind":"Variable","name":{"kind":"Name","value":"slug"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"content"}}]}}]}}]}}]} as unknown as DocumentNode<GetPostQueryQuery, GetPostQueryQueryVariables>;
-export const GetProjectQueryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetProjectQuery"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"slug"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"projectCollection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"slug"},"value":{"kind":"Variable","name":{"kind":"Name","value":"slug"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"leadImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}}]}}]}}]}}]} as unknown as DocumentNode<GetProjectQueryQuery, GetProjectQueryQueryVariables>;
+export const GetProjectQueryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetProjectQuery"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"slug"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"projectCollection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"slug"},"value":{"kind":"Variable","name":{"kind":"Name","value":"slug"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"siteUrl"}},{"kind":"Field","name":{"kind":"Name","value":"githubUrl"}},{"kind":"Field","name":{"kind":"Name","value":"leadImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}}]}}]}}]}}]} as unknown as DocumentNode<GetProjectQueryQuery, GetProjectQueryQueryVariables>;
 export const GetPostsQueryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetPostsQuery"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"blogPostCollection"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"synopsis"}},{"kind":"Field","name":{"kind":"Name","value":"leadImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}}]}}]}}]} as unknown as DocumentNode<GetPostsQueryQuery, GetPostsQueryQueryVariables>;
+export const GetProjectPostsQueryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetProjectPostsQuery"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"projectSlug"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"projectPostCollection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"project"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"slug"},"value":{"kind":"Variable","name":{"kind":"Name","value":"projectSlug"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"synopsis"}},{"kind":"Field","name":{"kind":"Name","value":"leadImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}}]}}]}}]} as unknown as DocumentNode<GetProjectPostsQueryQuery, GetProjectPostsQueryQueryVariables>;
 export const GetProjectsQueryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetProjectsQuery"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"projectCollection"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"synopsis"}},{"kind":"Field","name":{"kind":"Name","value":"leadImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}}]}}]}}]}}]} as unknown as DocumentNode<GetProjectsQueryQuery, GetProjectsQueryQueryVariables>;

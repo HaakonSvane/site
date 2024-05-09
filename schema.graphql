@@ -8,24 +8,6 @@ type Query {
     where: AssetFilter
     order: [AssetOrder]
   ): AssetCollection
-  blogPost(id: String!, preview: Boolean, locale: String): BlogPost
-  blogPostCollection(
-    skip: Int = 0
-    limit: Int = 100
-    preview: Boolean
-    locale: String
-    where: BlogPostFilter
-    order: [BlogPostOrder]
-  ): BlogPostCollection
-  project(id: String!, preview: Boolean, locale: String): Project
-  projectCollection(
-    skip: Int = 0
-    limit: Int = 100
-    preview: Boolean
-    locale: String
-    where: ProjectFilter
-    order: [ProjectOrder]
-  ): ProjectCollection
   projectPost(id: String!, preview: Boolean, locale: String): ProjectPost
   projectPostCollection(
     skip: Int = 0
@@ -35,6 +17,24 @@ type Query {
     where: ProjectPostFilter
     order: [ProjectPostOrder]
   ): ProjectPostCollection
+  project(id: String!, preview: Boolean, locale: String): Project
+  projectCollection(
+    skip: Int = 0
+    limit: Int = 100
+    preview: Boolean
+    locale: String
+    where: ProjectFilter
+    order: [ProjectOrder]
+  ): ProjectCollection
+  blogPost(id: String!, preview: Boolean, locale: String): BlogPost
+  blogPostCollection(
+    skip: Int = 0
+    limit: Int = 100
+    preview: Boolean
+    locale: String
+    where: BlogPostFilter
+    order: [BlogPostOrder]
+  ): BlogPostCollection
   entryCollection(
     skip: Int = 0
     limit: Int = 100
@@ -212,24 +212,24 @@ type AssetLinkingCollections {
     preview: Boolean
     locale: String
   ): EntryCollection
-  blogPostCollection(
-    skip: Int = 0
-    limit: Int = 100
-    preview: Boolean
-    locale: String
-  ): BlogPostCollection
-  projectCollection(
-    skip: Int = 0
-    limit: Int = 100
-    preview: Boolean
-    locale: String
-  ): ProjectCollection
   projectPostCollection(
     skip: Int = 0
     limit: Int = 100
     preview: Boolean
     locale: String
   ): ProjectPostCollection
+  projectCollection(
+    skip: Int = 0
+    limit: Int = 100
+    preview: Boolean
+    locale: String
+  ): ProjectCollection
+  blogPostCollection(
+    skip: Int = 0
+    limit: Int = 100
+    preview: Boolean
+    locale: String
+  ): BlogPostCollection
 }
 
 type EntryCollection {
@@ -244,32 +244,40 @@ interface Entry {
   contentfulMetadata: ContentfulMetadata!
 }
 
-type BlogPostCollection {
+type ProjectPostCollection {
   total: Int!
   skip: Int!
   limit: Int!
-  items: [BlogPost]!
+  items: [ProjectPost]!
 }
 
-# A single blog post entry for the blog section of the site. [See type definition](https://app.contentful.com/spaces/etyu8fms5usu/content_types/blogPost)
-type BlogPost implements Entry {
+# A single post that belongs to a project. [See type definition](https://app.contentful.com/spaces/etyu8fms5usu/content_types/projectPost)
+type ProjectPost implements Entry {
   sys: Sys!
   contentfulMetadata: ContentfulMetadata!
-  linkedFrom(allowedLocales: [String]): BlogPostLinkingCollections
+  linkedFrom(allowedLocales: [String]): ProjectPostLinkingCollections
   title(locale: String): String
   synopsis(locale: String): String
   slug(locale: String): String
+  project(preview: Boolean, locale: String, where: ProjectFilter): Project
   leadImage(preview: Boolean, locale: String): Asset
   content(locale: String): String
 }
 
-type BlogPostLinkingCollections {
+type ProjectPostLinkingCollections {
   entryCollection(
     skip: Int = 0
     limit: Int = 100
     preview: Boolean
     locale: String
   ): EntryCollection
+  projectCollection(
+    skip: Int = 0
+    limit: Int = 100
+    preview: Boolean
+    locale: String
+    order: [ProjectPostLinkingCollectionsProjectCollectionOrder]
+  ): ProjectCollection
 }
 
 type ProjectCollection {
@@ -297,6 +305,8 @@ type Project implements Entry {
     where: ProjectPostFilter
     order: [ProjectPostsCollectionOrder]
   ): ProjectPostsCollection
+  githubUrl(locale: String): String
+  siteUrl(locale: String): String
 }
 
 type ProjectLinkingCollections {
@@ -313,172 +323,6 @@ type ProjectLinkingCollections {
     locale: String
     order: [ProjectLinkingCollectionsProjectPostCollectionOrder]
   ): ProjectPostCollection
-}
-
-type ProjectPostCollection {
-  total: Int!
-  skip: Int!
-  limit: Int!
-  items: [ProjectPost]!
-}
-
-# A single post that belongs to a project. [See type definition](https://app.contentful.com/spaces/etyu8fms5usu/content_types/projectPost)
-type ProjectPost implements Entry {
-  sys: Sys!
-  contentfulMetadata: ContentfulMetadata!
-  linkedFrom(allowedLocales: [String]): ProjectPostLinkingCollections
-  title(locale: String): String
-  slug(locale: String): String
-  project(preview: Boolean, locale: String, where: ProjectFilter): Project
-  leadImage(preview: Boolean, locale: String): Asset
-  content(locale: String): String
-}
-
-type ProjectPostLinkingCollections {
-  entryCollection(
-    skip: Int = 0
-    limit: Int = 100
-    preview: Boolean
-    locale: String
-  ): EntryCollection
-  projectCollection(
-    skip: Int = 0
-    limit: Int = 100
-    preview: Boolean
-    locale: String
-    order: [ProjectPostLinkingCollectionsProjectCollectionOrder]
-  ): ProjectCollection
-}
-
-enum ProjectPostLinkingCollectionsProjectCollectionOrder {
-  title_ASC
-  title_DESC
-  slug_ASC
-  slug_DESC
-  sys_id_ASC
-  sys_id_DESC
-  sys_publishedAt_ASC
-  sys_publishedAt_DESC
-  sys_firstPublishedAt_ASC
-  sys_firstPublishedAt_DESC
-  sys_publishedVersion_ASC
-  sys_publishedVersion_DESC
-}
-
-input ProjectFilter {
-  posts: cfProjectPostNestedFilter
-  sys: SysFilter
-  contentfulMetadata: ContentfulMetadataFilter
-  title_exists: Boolean
-  title: String
-  title_not: String
-  title_in: [String]
-  title_not_in: [String]
-  title_contains: String
-  title_not_contains: String
-  slug_exists: Boolean
-  slug: String
-  slug_not: String
-  slug_in: [String]
-  slug_not_in: [String]
-  slug_contains: String
-  slug_not_contains: String
-  synopsis_exists: Boolean
-  synopsis: String
-  synopsis_not: String
-  synopsis_in: [String]
-  synopsis_not_in: [String]
-  synopsis_contains: String
-  synopsis_not_contains: String
-  description_exists: Boolean
-  description: String
-  description_not: String
-  description_in: [String]
-  description_not_in: [String]
-  description_contains: String
-  description_not_contains: String
-  leadImage_exists: Boolean
-  postsCollection_exists: Boolean
-  OR: [ProjectFilter]
-  AND: [ProjectFilter]
-}
-
-input cfProjectPostNestedFilter {
-  sys: SysFilter
-  contentfulMetadata: ContentfulMetadataFilter
-  title_exists: Boolean
-  title: String
-  title_not: String
-  title_in: [String]
-  title_not_in: [String]
-  title_contains: String
-  title_not_contains: String
-  slug_exists: Boolean
-  slug: String
-  slug_not: String
-  slug_in: [String]
-  slug_not_in: [String]
-  slug_contains: String
-  slug_not_contains: String
-  project_exists: Boolean
-  leadImage_exists: Boolean
-  content_exists: Boolean
-  content: String
-  content_not: String
-  content_in: [String]
-  content_not_in: [String]
-  content_contains: String
-  content_not_contains: String
-  OR: [cfProjectPostNestedFilter]
-  AND: [cfProjectPostNestedFilter]
-}
-
-input SysFilter {
-  id_exists: Boolean
-  id: String
-  id_not: String
-  id_in: [String]
-  id_not_in: [String]
-  id_contains: String
-  id_not_contains: String
-  publishedAt_exists: Boolean
-  publishedAt: DateTime
-  publishedAt_not: DateTime
-  publishedAt_in: [DateTime]
-  publishedAt_not_in: [DateTime]
-  publishedAt_gt: DateTime
-  publishedAt_gte: DateTime
-  publishedAt_lt: DateTime
-  publishedAt_lte: DateTime
-  firstPublishedAt_exists: Boolean
-  firstPublishedAt: DateTime
-  firstPublishedAt_not: DateTime
-  firstPublishedAt_in: [DateTime]
-  firstPublishedAt_not_in: [DateTime]
-  firstPublishedAt_gt: DateTime
-  firstPublishedAt_gte: DateTime
-  firstPublishedAt_lt: DateTime
-  firstPublishedAt_lte: DateTime
-  publishedVersion_exists: Boolean
-  publishedVersion: Float
-  publishedVersion_not: Float
-  publishedVersion_in: [Float]
-  publishedVersion_not_in: [Float]
-  publishedVersion_gt: Float
-  publishedVersion_gte: Float
-  publishedVersion_lt: Float
-  publishedVersion_lte: Float
-}
-
-input ContentfulMetadataFilter {
-  tags_exists: Boolean
-  tags: ContentfulMetadataTagsFilter
-}
-
-input ContentfulMetadataTagsFilter {
-  id_contains_all: [String]
-  id_contains_some: [String]
-  id_contains_none: [String]
 }
 
 enum ProjectLinkingCollectionsProjectPostCollectionOrder {
@@ -514,6 +358,13 @@ input ProjectPostFilter {
   title_not_in: [String]
   title_contains: String
   title_not_contains: String
+  synopsis_exists: Boolean
+  synopsis: String
+  synopsis_not: String
+  synopsis_in: [String]
+  synopsis_not_in: [String]
+  synopsis_contains: String
+  synopsis_not_contains: String
   slug_exists: Boolean
   slug: String
   slug_not: String
@@ -567,8 +418,70 @@ input cfProjectNestedFilter {
   description_not_contains: String
   leadImage_exists: Boolean
   postsCollection_exists: Boolean
+  githubUrl_exists: Boolean
+  githubUrl: String
+  githubUrl_not: String
+  githubUrl_in: [String]
+  githubUrl_not_in: [String]
+  githubUrl_contains: String
+  githubUrl_not_contains: String
+  siteUrl_exists: Boolean
+  siteUrl: String
+  siteUrl_not: String
+  siteUrl_in: [String]
+  siteUrl_not_in: [String]
+  siteUrl_contains: String
+  siteUrl_not_contains: String
   OR: [cfProjectNestedFilter]
   AND: [cfProjectNestedFilter]
+}
+
+input SysFilter {
+  id_exists: Boolean
+  id: String
+  id_not: String
+  id_in: [String]
+  id_not_in: [String]
+  id_contains: String
+  id_not_contains: String
+  publishedAt_exists: Boolean
+  publishedAt: DateTime
+  publishedAt_not: DateTime
+  publishedAt_in: [DateTime]
+  publishedAt_not_in: [DateTime]
+  publishedAt_gt: DateTime
+  publishedAt_gte: DateTime
+  publishedAt_lt: DateTime
+  publishedAt_lte: DateTime
+  firstPublishedAt_exists: Boolean
+  firstPublishedAt: DateTime
+  firstPublishedAt_not: DateTime
+  firstPublishedAt_in: [DateTime]
+  firstPublishedAt_not_in: [DateTime]
+  firstPublishedAt_gt: DateTime
+  firstPublishedAt_gte: DateTime
+  firstPublishedAt_lt: DateTime
+  firstPublishedAt_lte: DateTime
+  publishedVersion_exists: Boolean
+  publishedVersion: Float
+  publishedVersion_not: Float
+  publishedVersion_in: [Float]
+  publishedVersion_not_in: [Float]
+  publishedVersion_gt: Float
+  publishedVersion_gte: Float
+  publishedVersion_lt: Float
+  publishedVersion_lte: Float
+}
+
+input ContentfulMetadataFilter {
+  tags_exists: Boolean
+  tags: ContentfulMetadataTagsFilter
+}
+
+input ContentfulMetadataTagsFilter {
+  id_contains_all: [String]
+  id_contains_some: [String]
+  id_contains_none: [String]
 }
 
 enum ProjectPostsCollectionOrder {
@@ -584,6 +497,142 @@ enum ProjectPostsCollectionOrder {
   sys_firstPublishedAt_DESC
   sys_publishedVersion_ASC
   sys_publishedVersion_DESC
+}
+
+enum ProjectPostLinkingCollectionsProjectCollectionOrder {
+  title_ASC
+  title_DESC
+  slug_ASC
+  slug_DESC
+  githubUrl_ASC
+  githubUrl_DESC
+  siteUrl_ASC
+  siteUrl_DESC
+  sys_id_ASC
+  sys_id_DESC
+  sys_publishedAt_ASC
+  sys_publishedAt_DESC
+  sys_firstPublishedAt_ASC
+  sys_firstPublishedAt_DESC
+  sys_publishedVersion_ASC
+  sys_publishedVersion_DESC
+}
+
+input ProjectFilter {
+  posts: cfProjectPostNestedFilter
+  sys: SysFilter
+  contentfulMetadata: ContentfulMetadataFilter
+  title_exists: Boolean
+  title: String
+  title_not: String
+  title_in: [String]
+  title_not_in: [String]
+  title_contains: String
+  title_not_contains: String
+  slug_exists: Boolean
+  slug: String
+  slug_not: String
+  slug_in: [String]
+  slug_not_in: [String]
+  slug_contains: String
+  slug_not_contains: String
+  synopsis_exists: Boolean
+  synopsis: String
+  synopsis_not: String
+  synopsis_in: [String]
+  synopsis_not_in: [String]
+  synopsis_contains: String
+  synopsis_not_contains: String
+  description_exists: Boolean
+  description: String
+  description_not: String
+  description_in: [String]
+  description_not_in: [String]
+  description_contains: String
+  description_not_contains: String
+  leadImage_exists: Boolean
+  postsCollection_exists: Boolean
+  githubUrl_exists: Boolean
+  githubUrl: String
+  githubUrl_not: String
+  githubUrl_in: [String]
+  githubUrl_not_in: [String]
+  githubUrl_contains: String
+  githubUrl_not_contains: String
+  siteUrl_exists: Boolean
+  siteUrl: String
+  siteUrl_not: String
+  siteUrl_in: [String]
+  siteUrl_not_in: [String]
+  siteUrl_contains: String
+  siteUrl_not_contains: String
+  OR: [ProjectFilter]
+  AND: [ProjectFilter]
+}
+
+input cfProjectPostNestedFilter {
+  sys: SysFilter
+  contentfulMetadata: ContentfulMetadataFilter
+  title_exists: Boolean
+  title: String
+  title_not: String
+  title_in: [String]
+  title_not_in: [String]
+  title_contains: String
+  title_not_contains: String
+  synopsis_exists: Boolean
+  synopsis: String
+  synopsis_not: String
+  synopsis_in: [String]
+  synopsis_not_in: [String]
+  synopsis_contains: String
+  synopsis_not_contains: String
+  slug_exists: Boolean
+  slug: String
+  slug_not: String
+  slug_in: [String]
+  slug_not_in: [String]
+  slug_contains: String
+  slug_not_contains: String
+  project_exists: Boolean
+  leadImage_exists: Boolean
+  content_exists: Boolean
+  content: String
+  content_not: String
+  content_in: [String]
+  content_not_in: [String]
+  content_contains: String
+  content_not_contains: String
+  OR: [cfProjectPostNestedFilter]
+  AND: [cfProjectPostNestedFilter]
+}
+
+type BlogPostCollection {
+  total: Int!
+  skip: Int!
+  limit: Int!
+  items: [BlogPost]!
+}
+
+# A single blog post entry for the blog section of the site. [See type definition](https://app.contentful.com/spaces/etyu8fms5usu/content_types/blogPost)
+type BlogPost implements Entry {
+  sys: Sys!
+  contentfulMetadata: ContentfulMetadata!
+  linkedFrom(allowedLocales: [String]): BlogPostLinkingCollections
+  title(locale: String): String
+  synopsis(locale: String): String
+  slug(locale: String): String
+  leadImage(preview: Boolean, locale: String): Asset
+  content(locale: String): String
+}
+
+type BlogPostLinkingCollections {
+  entryCollection(
+    skip: Int = 0
+    limit: Int = 100
+    preview: Boolean
+    locale: String
+  ): EntryCollection
 }
 
 type AssetCollection {
@@ -685,6 +734,40 @@ enum AssetOrder {
   sys_publishedVersion_DESC
 }
 
+enum ProjectPostOrder {
+  title_ASC
+  title_DESC
+  slug_ASC
+  slug_DESC
+  sys_id_ASC
+  sys_id_DESC
+  sys_publishedAt_ASC
+  sys_publishedAt_DESC
+  sys_firstPublishedAt_ASC
+  sys_firstPublishedAt_DESC
+  sys_publishedVersion_ASC
+  sys_publishedVersion_DESC
+}
+
+enum ProjectOrder {
+  title_ASC
+  title_DESC
+  slug_ASC
+  slug_DESC
+  githubUrl_ASC
+  githubUrl_DESC
+  siteUrl_ASC
+  siteUrl_DESC
+  sys_id_ASC
+  sys_id_DESC
+  sys_publishedAt_ASC
+  sys_publishedAt_DESC
+  sys_firstPublishedAt_ASC
+  sys_firstPublishedAt_DESC
+  sys_publishedVersion_ASC
+  sys_publishedVersion_DESC
+}
+
 input BlogPostFilter {
   sys: SysFilter
   contentfulMetadata: ContentfulMetadataFilter
@@ -722,36 +805,6 @@ input BlogPostFilter {
 }
 
 enum BlogPostOrder {
-  title_ASC
-  title_DESC
-  slug_ASC
-  slug_DESC
-  sys_id_ASC
-  sys_id_DESC
-  sys_publishedAt_ASC
-  sys_publishedAt_DESC
-  sys_firstPublishedAt_ASC
-  sys_firstPublishedAt_DESC
-  sys_publishedVersion_ASC
-  sys_publishedVersion_DESC
-}
-
-enum ProjectOrder {
-  title_ASC
-  title_DESC
-  slug_ASC
-  slug_DESC
-  sys_id_ASC
-  sys_id_DESC
-  sys_publishedAt_ASC
-  sys_publishedAt_DESC
-  sys_firstPublishedAt_ASC
-  sys_firstPublishedAt_DESC
-  sys_publishedVersion_ASC
-  sys_publishedVersion_DESC
-}
-
-enum ProjectPostOrder {
   title_ASC
   title_DESC
   slug_ASC

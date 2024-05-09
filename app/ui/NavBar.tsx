@@ -1,12 +1,12 @@
 import logoDark from "../../public/logo-dark.svg";
 import logoLight from "../../public/logo-light.svg";
 
-import { useTheme } from "remix-themes";
-import { NavMenu } from "./NavMenu";
-import { Heading } from "./Typography/Heading";
-import { ThemeButton } from "./ThemeButton";
 import { Link } from "@remix-run/react";
+import { useTheme } from "remix-themes";
 import { Container } from "./Container";
+import { NavMenu } from "./NavMenu";
+import { ThemeButton } from "./ThemeButton";
+import { Typography } from "./Typography";
 
 export const NavBar = () => {
     const [theme] = useTheme();
@@ -20,7 +20,9 @@ export const NavBar = () => {
                             alt="logo"
                             className="w-8 h-8"
                         />
-                        <Heading className="text-xl font-semibold">Haakon Svane</Heading>
+                        <Typography.Serif className="text-xl font-semibold">
+                            Haakon Svane
+                        </Typography.Serif>
                     </Link>
                     <NavMenu.List>
                         <NavMenu.Item value="projects">

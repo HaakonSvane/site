@@ -78,18 +78,18 @@ export const ErrorBoundary = () => {
     return (
         <Container className="flex h-full gap-x-4 flex-row justify-center align-center">
             <div className="flex flex-col justify-center">
-                <Typography.Heading className="text-6xl font-bold whitespace-nowrap">
+                <Typography.Serif className="text-6xl font-bold whitespace-nowrap">
                     {":("}
-                </Typography.Heading>
+                </Typography.Serif>
             </div>
 
             <div className="flex flex-col gap-2 justify-center">
-                <Typography.Heading className="text-3xl font-bold">{errorTitle}</Typography.Heading>
-                <Typography.Paragraph>{errorDescription}</Typography.Paragraph>
+                <Typography.Serif className="text-3xl font-bold">{errorTitle}</Typography.Serif>
+                <Typography.Sans>{errorDescription}</Typography.Sans>
             </div>
 
             <div className="flex flex-col justify-center whitespace-nowrap">
-                <Typography.Heading className="text-6xl font-bold">{"):"}</Typography.Heading>
+                <Typography.Serif className="text-6xl font-bold">{"):"}</Typography.Serif>
             </div>
         </Container>
     );

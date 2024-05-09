@@ -1,17 +1,17 @@
-import { Heading } from "./Heading";
-import type { HeadingProps } from "./Heading";
-import { Paragraph } from "./Paragraph";
-import type { ParagraphProps } from "./Paragraph";
+import { Serif } from "./Serif";
+import type { SerifProps } from "./Serif";
+import { Sans } from "./Sans";
+import type { SansProps } from "./Sans";
 
 type TypographyFamily = {
-    Heading: typeof Heading;
-    Paragraph: typeof Paragraph;
+    Serif: typeof Serif;
+    Sans: typeof Sans;
 };
 
 const Typography: TypographyFamily = {
-    Heading,
-    Paragraph,
+    Serif,
+    Sans,
 };
 
 export { Typography };
-export type { ParagraphProps, HeadingProps };
+export type { SansProps, SerifProps };

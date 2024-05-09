@@ -40,7 +40,7 @@ const Blog = () => {
     const posts = useLoaderData<typeof loader>();
     return (
         <Container className="flex flex-1 flex-col gap-y-4">
-            <Typography.Heading className="text-3xl font-bold">Blog posts</Typography.Heading>
+            <Typography.Serif className="text-3xl font-bold">Blog posts</Typography.Serif>
             {posts.map(post => (
                 <Card.Link to={`${post.slug}`} key={post.slug}>
                     <Card.Header>

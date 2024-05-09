@@ -42,7 +42,7 @@ const Projects = () => {
 
     return (
         <Container className="flex flex-1 flex-col gap-y-4">
-            <Typography.Heading className="text-3xl font-bold">Projects</Typography.Heading>
+            <Typography.Serif className="text-3xl font-bold">Projects</Typography.Serif>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {projects.map(project => (
                     <Card.Link to={`${project.slug}`} key={project.slug}>

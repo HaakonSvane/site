@@ -52,7 +52,9 @@ export const postComponents: MDXComponent = {
             {...props}
         />
     ),
-    p: props => <Typography.Sans className={tw("leading-7", props.className)} {...props} />,
+    p: props => (
+        <Typography.Sans as="span" className={tw("leading-7", props.className)} {...props} />
+    ),
     table: props => <table className={tw("w-full", props.className)} {...props} />,
     tr: props => <tr className={tw("", props.className)} {...props} />,
     th: props => (

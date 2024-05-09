@@ -1,7 +1,7 @@
 import { Link } from "@radix-ui/react-navigation-menu";
 import { HtmlHTMLAttributes, forwardRef } from "react";
 import { tw } from "~/lib/utility";
-import { Heading } from "../Typography/Heading";
+import { Serif } from "../Typography/Serif";
 
 export type NavMenuListItemProps = {
     title: string;
@@ -15,7 +15,7 @@ export const NavMenuListItem = forwardRef<
         <li>
             <Link asChild>
                 <a ref={ref} className={tw("", props.className)} {...props}>
-                    <Heading>{props.title}</Heading>
+                    <Serif>{props.title}</Serif>
                     {props.children}
                 </a>
             </Link>

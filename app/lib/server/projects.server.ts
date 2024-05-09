@@ -9,6 +9,8 @@ const GET_PROJECT_QUERY = gql(`
             items {
                 title
                 description
+                siteUrl
+                githubUrl
                 leadImage {
                     url
                     title

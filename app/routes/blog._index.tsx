@@ -32,7 +32,7 @@ const GET_POSTS_QUERY = gql(`
 
 export const loader = async () => {
     const queryResult = await qlQuery(GET_POSTS_QUERY, {});
-    const posts = (queryResult.data?.blogPostCollection?.items ?? []) as BlogPost[];
+    const posts = (queryResult.data?.blogPostCollection?.items ?? []).filter(Boolean) as BlogPost[];
     return json(posts);
 };
 

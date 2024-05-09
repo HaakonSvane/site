@@ -29,8 +29,7 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
                 { status: 404 },
             );
         }
-        const { frontmatter, code } = post;
-        return json({ frontmatter, code });
+        return json(post);
     } catch (error) {
         throw json<JsonErrorResponsePayload>(
             {
@@ -45,14 +44,14 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
 
 export const meta: MetaFunction<typeof loader> = ({ data }) => {
     return [
-        { title: `${data?.frontmatter.title ?? "Post"} | Haakon Svane` },
+        { title: `${data?.title ?? "Post"} | Haakon Svane` },
         { name: "description", content: "Personal site for Haakon Svane" },
     ];
 };
 
 const BlogPost = () => {
-    const { frontmatter, code } = useLoaderData<typeof loader>();
-    const Component = useMemo(() => getMDXComponent(code), [code]);
+    const { content } = useLoaderData<typeof loader>();
+    const Component = useMemo(() => getMDXComponent(content), [content]);
     return (
         <Container>
             <article>

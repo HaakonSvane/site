@@ -7,6 +7,9 @@ const config: CodegenConfig = {
         "./app/graphql/": {
             preset: "client",
             plugins: [],
+            config: {
+                typesPrefix: "GQL_",
+            },
             presetConfig: {
                 gqlTagName: "gql",
             },

@@ -1,6 +1,8 @@
 import { MetaFunction, json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-import { getProjects } from "~/lib/server/projects.server";
+import { gql } from "~/graphql";
+import { Project } from "~/graphql/graphql";
+import { qlQuery } from "~/lib/server/graphql.server";
 import { Card } from "~/ui/Card";
 import { Container } from "~/ui/Container";
 import { Typography } from "~/ui/Typography";
@@ -12,8 +14,26 @@ export const meta: MetaFunction = () => {
     ];
 };
 
+const GET_PROJECTS_QUERY = gql(`
+    query GetProjectsQuery {
+        projectCollection {
+            items {
+                title
+                slug
+                title
+                synopsis
+                leadImage {
+                    url
+                    title
+                }
+            }
+        }
+    }
+`);
+
 export const loader = async () => {
-    const posts = await getProjects();
+    const queryResponse = await qlQuery(GET_PROJECTS_QUERY, {});
+    const posts = (queryResponse.data?.projectCollection?.items ?? []).filter(Boolean) as Project[];
     return json(posts);
 };
 
@@ -27,16 +47,16 @@ const Projects = () => {
                 {projects.map(project => (
                     <Card.Link to={`${project.slug}`} key={project.slug}>
                         <Card.Header>
-                            <Card.Title>{project.meta.name}</Card.Title>
+                            <Card.Title>{project.title}</Card.Title>
                             <div className="flex flex-row gap-x-4">
-                                {project.meta.image && (
+                                {project.leadImage?.url && (
                                     <img
-                                        src={project.meta.image}
-                                        alt={project.meta.name}
+                                        src={project.leadImage.url}
+                                        alt={project.leadImage.title ?? "Project image"}
                                         className="w-12 h-12"
                                     />
                                 )}
-                                <Card.Description>{project.meta.synopsis}</Card.Description>
+                                <Card.Description>{project.synopsis}</Card.Description>
                             </div>
                         </Card.Header>
                     </Card.Link>

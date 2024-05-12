@@ -10,42 +10,44 @@ export default {
                 heading: ["Playfair Display", "serif"],
             },
             colors: {
+                border: "hsl(var(--border))",
+                input: "hsl(var(--input))",
+                ring: "hsl(var(--ring))",
+                background: "hsl(var(--background))",
+                foreground: "hsl(var(--foreground))",
                 primary: {
-                    light: "#455F55",
-                    dark: "#9FBAAF",
+                    DEFAULT: "hsl(var(--primary))",
+                    foreground: "hsl(var(--primary-foreground))",
                 },
                 secondary: {
-                    light: "#203A46",
-                    dark: "#424861",
+                    DEFAULT: "hsl(var(--secondary))",
+                    foreground: "hsl(var(--secondary-foreground))",
                 },
-                background: {
-                    light: "#F3F4F7",
-                    dark: "#1F222E",
+                destructive: {
+                    DEFAULT: "hsl(var(--destructive))",
+                    foreground: "hsl(var(--destructive-foreground))",
                 },
                 muted: {
-                    light: "#D9DBDE",
-                    dark: "#525A7A",
+                    DEFAULT: "hsl(var(--muted))",
+                    foreground: "hsl(var(--muted-foreground))",
                 },
-                border: {
-                    light: "#C0C1C4",
-                    dark: "#414761",
+                accent: {
+                    DEFAULT: "hsl(var(--accent))",
+                    foreground: "hsl(var(--accent-foreground))",
                 },
-                text: {
-                    light: "#172A33",
-                    dark: "#F3F4F7",
+                popover: {
+                    DEFAULT: "hsl(var(--popover))",
+                    foreground: "hsl(var(--popover-foreground))",
                 },
-                danger: {
-                    light: "#FF6C5E",
-                    dark: "#FF9B91",
+                card: {
+                    DEFAULT: "hsl(var(--card))",
+                    foreground: "hsl(var(--card-foreground))",
                 },
-                warning: {
-                    ligth: "#FFC549",
-                    dark: "#FFC549",
-                },
-                info: {
-                    light: "#2A97B7",
-                    dark: "#2A97B7",
-                },
+            },
+            borderRadius: {
+                lg: "var(--radius)",
+                md: "calc(var(--radius) - 2px)",
+                sm: "calc(var(--radius) - 4px)",
             },
         },
     },

@@ -11,12 +11,7 @@ export const Serif = <TElem extends ElementType = "p">({
     ...rest
 }: SerifProps<TElem>) => {
     const Component = as ?? "p";
-    return (
-        <Component
-            {...rest}
-            className={tw("text-text-light dark:text-text-dark font-heading", className)}
-        />
-    );
+    return <Component {...rest} className={tw("text-text font-heading", className)} />;
 };
 
 Serif.displayName = "Serif";

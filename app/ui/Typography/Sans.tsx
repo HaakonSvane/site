@@ -11,12 +11,7 @@ export const Sans = <TElem extends ElementType = "p">({
     ...rest
 }: SansProps<TElem>) => {
     const Component = as ?? "p";
-    return (
-        <Component
-            {...rest}
-            className={tw("font-sans text-text-light dark:text-text-dark", className)}
-        />
-    );
+    return <Component {...rest} className={tw("font-sans text-foreground", className)} />;
 };
 
 Sans.displayName = "Sans";

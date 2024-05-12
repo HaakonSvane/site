@@ -7,7 +7,7 @@ export const postComponents: MDXComponent = {
     h1: props => (
         <Typography.Serif
             className={tw(
-                "[&:not(:first-child)]:mt-6 scroll-m-20 border-b border-border-light dark:border-border-dark pb-2 mb-6 text-4xl font-bold tracking-tight lg:text-5xl",
+                "[&:not(:first-child)]:mt-6 scroll-m-20 border-b border-border pb-2 mb-6 text-4xl font-bold tracking-tight lg:text-5xl",
                 props.className,
             )}
             {...props}
@@ -37,18 +37,10 @@ export const postComponents: MDXComponent = {
             {...props}
         />
     ),
-    hr: props => (
-        <hr
-            className={tw("shrink-0 border-border-light dark:border-border-dark", props.className)}
-            {...props}
-        />
-    ),
+    hr: props => <hr className={tw("shrink-0 border-border", props.className)} {...props} />,
     blockquote: props => (
         <blockquote
-            className={tw(
-                "mt-6 border-l-2 pl-6 italic border-border-light dark:border-border-dark",
-                props.className,
-            )}
+            className={tw("mt-6 border-l-2 pl-6 italic border-border", props.className)}
             {...props}
         />
     ),
@@ -56,13 +48,7 @@ export const postComponents: MDXComponent = {
     table: props => <table className={tw("w-full", props.className)} {...props} />,
     tr: props => <tr className={tw("", props.className)} {...props} />,
     th: props => (
-        <th
-            className={tw(
-                "m-0 border-t border-border-light dark:border-border-dark p-0",
-                props.className,
-            )}
-            {...props}
-        />
+        <th className={tw("m-0 border-t border-border p-0", props.className)} {...props} />
     ),
     li: props => (
         <li className={tw("my-4 ml-6 list-disc [&>li]:mt-2", props.className)} {...props} />

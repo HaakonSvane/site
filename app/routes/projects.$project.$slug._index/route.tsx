@@ -53,7 +53,6 @@ const ProjectPost = () => {
     const { content } = useLoaderData<typeof loader>();
     const Component = useMemo(() => getMDXComponent(content), [content]);
 
-    console.log("GOT HERE");
     return (
         <Container>
             <article>

@@ -1,5 +1,5 @@
 import { LoaderFunctionArgs, json } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { useLoaderData, useNavigation } from "@remix-run/react";
 import { Badge } from "~/ui/Badge";
 import { getMDXComponent } from "mdx-bundler/client/index.js";
 import { useMemo } from "react";
@@ -81,6 +81,7 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
 
 export default function Project() {
     const { project, projectPosts } = useLoaderData<typeof loader>();
+    // const navigation = useNavigation(); // TODO: use this to tap in to the loading state of the page / next page
     const Component = useMemo(
         () => getMDXComponent(project?.description ?? ""),
         [project?.description],

@@ -1,18 +1,18 @@
 import { LoaderFunctionArgs, MetaFunction, json } from "@remix-run/node";
-import { useLoaderData, useNavigation } from "@remix-run/react";
-import { Badge } from "~/ui/Badge";
+import { useLoaderData } from "@remix-run/react";
+import { Github, Globe } from "lucide-react";
 import { getMDXComponent } from "mdx-bundler/client/index.js";
 import { useMemo } from "react";
+import { gql } from "~/graphql";
+import { ProjectPost } from "~/graphql/graphql";
 import { postComponents } from "~/lib/postComponents";
+import { qlQuery } from "~/lib/server/graphql.server";
 import { getProject } from "~/lib/server/projects.server";
 import { JsonErrorResponsePayload } from "~/lib/utility/errorResponse";
+import { Badge } from "~/ui/Badge";
+import { Card } from "~/ui/Card";
 import { Container } from "~/ui/Container";
 import { Typography } from "~/ui/Typography";
-import { Github, Globe } from "lucide-react";
-import { Card } from "~/ui/Card";
-import { ProjectPost } from "~/graphql/graphql";
-import { qlQuery } from "~/lib/server/graphql.server";
-import { gql } from "~/graphql";
 
 const GET_PROJECT_POSTS_QUERY = gql(`
     query GetProjectPostsQuery($projectSlug: String!) {

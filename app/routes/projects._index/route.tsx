@@ -56,7 +56,9 @@ const Projects = () => {
                                         className="w-12 h-12"
                                     />
                                 )}
-                                <Card.Description>{project.synopsis}</Card.Description>
+                                <Card.Description className="text-card-foreground">
+                                    {project.synopsis}
+                                </Card.Description>
                             </div>
                         </Card.Header>
                     </Card.Link>

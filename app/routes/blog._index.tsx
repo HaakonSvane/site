@@ -53,7 +53,9 @@ const Blog = () => {
                                     className="w-12 h-12"
                                 />
                             )}
-                            <Card.Description>{post.synopsis}</Card.Description>
+                            <Card.Description className="text-card-foreground">
+                                {post.synopsis}
+                            </Card.Description>
                         </div>
                     </Card.Header>
                 </Card.Link>

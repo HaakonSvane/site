@@ -33,7 +33,22 @@ export const postComponents: MDXComponent = {
     ),
     h4: props => (
         <Typography.Serif
-            className={tw("[&:not(:first-child)]:mt-6 leading-7", props.className)}
+            className={tw(
+                "[&:not(:first-child)]:mt-6 leading-7 text-xl font-semibold",
+                props.className,
+            )}
+            {...props}
+        />
+    ),
+    h5: props => (
+        <Typography.Serif
+            className={tw("[&:not(:first-child)]:mt-6 leading-7 text-lg", props.className)}
+            {...props}
+        />
+    ),
+    h6: props => (
+        <Typography.Serif
+            className={tw("[&:not(:first-child)]:mt-6 leading-7 text-md", props.className)}
             {...props}
         />
     ),

@@ -53,7 +53,7 @@ const BlogPost = () => {
     const { content } = useLoaderData<typeof loader>();
     const Component = useMemo(() => getMDXComponent(content), [content]);
     return (
-        <Container>
+        <Container className="py-4">
             <article>
                 <Component components={postComponents} />
             </article>

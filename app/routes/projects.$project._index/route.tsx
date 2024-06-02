@@ -1,4 +1,4 @@
-import { LoaderFunctionArgs, json } from "@remix-run/node";
+import { LoaderFunctionArgs, MetaFunction, json } from "@remix-run/node";
 import { useLoaderData, useNavigation } from "@remix-run/react";
 import { Badge } from "~/ui/Badge";
 import { getMDXComponent } from "mdx-bundler/client/index.js";
@@ -29,6 +29,16 @@ const GET_PROJECT_POSTS_QUERY = gql(`
         }
     }
 `);
+
+export const meta: MetaFunction<typeof loader> = ({ data }) => {
+    return [
+        { title: `${data?.project?.title ?? "Project"} | Haakon Svane` },
+        {
+            name: "description",
+            content: `The ${data?.project?.title ?? "UNNAMED"} project of Haakon Svane`,
+        },
+    ];
+};
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
     const projectSlug = params.project;

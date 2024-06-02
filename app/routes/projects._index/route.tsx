@@ -46,9 +46,9 @@ const Projects = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {projects.map(project => (
                     <Card.Link to={`${project.slug}`} key={project.slug}>
-                        <Card.Header>
+                        <Card.Header className="flex gap-2">
                             <Card.Title>{project.title}</Card.Title>
-                            <div className="flex flex-row gap-x-4">
+                            <div className="flex flex-row gap-x-4 items-center">
                                 {project.leadImage?.url && (
                                     <img
                                         src={project.leadImage.url}

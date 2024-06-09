@@ -1,16 +1,16 @@
 import logoDark from "../../public/logo-dark.svg";
 import logoLight from "../../public/logo-light.svg";
 
-import { Link, NavLink } from "@remix-run/react";
+import { Link } from "@remix-run/react";
+import { Menu } from "lucide-react";
 import { useTheme } from "remix-themes";
+import { Button } from "./Button";
 import { Container } from "./Container";
 import { NavMenu } from "./NavMenu";
+import { Separator } from "./Separator";
+import { SideSheet } from "./SideSheet";
 import { ThemeButton } from "./ThemeButton";
 import { Typography } from "./Typography";
-import { Button } from "./Button";
-import { Menu } from "lucide-react";
-import { SideSheet } from "./SideSheet";
-import { Separator } from "./Separator";
 
 export const NavBar = () => {
     const [theme] = useTheme();

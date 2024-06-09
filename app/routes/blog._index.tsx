@@ -39,27 +39,29 @@ export const loader = async () => {
 const Blog = () => {
     const posts = useLoaderData<typeof loader>();
     return (
-        <Container className="flex flex-1 flex-col gap-y-4">
-            <Typography.Serif className="text-3xl font-bold">Blog posts</Typography.Serif>
-            {posts.map(post => (
-                <Card.Link to={`${post.slug}`} key={post.slug}>
-                    <Card.Header>
-                        <Card.Title>{post.title}</Card.Title>
-                        <div className="flex flex-row gap-x-4">
-                            {post.leadImage?.url && (
-                                <img
-                                    src={post.leadImage.url}
-                                    alt={post.leadImage.title ?? "Blog post image"}
-                                    className="w-12 h-12"
-                                />
-                            )}
-                            <Card.Description className="text-card-foreground">
-                                {post.synopsis}
-                            </Card.Description>
-                        </div>
-                    </Card.Header>
-                </Card.Link>
-            ))}
+        <Container className="flex flex-1 flex-col gap-y-8">
+            <Typography.Serif className="text-4xl font-bold">Blog posts</Typography.Serif>
+            <div className="grid grid-cols-1 gap-6">
+                {posts.map(post => (
+                    <Card.Link to={`${post.slug}`} key={post.slug}>
+                        <Card.Header>
+                            <Card.Title>{post.title}</Card.Title>
+                            <div className="flex flex-row gap-x-4">
+                                {post.leadImage?.url && (
+                                    <img
+                                        src={post.leadImage.url}
+                                        alt={post.leadImage.title ?? "Blog post image"}
+                                        className="w-12 h-12"
+                                    />
+                                )}
+                                <Card.Description className="text-card-foreground">
+                                    {post.synopsis}
+                                </Card.Description>
+                            </div>
+                        </Card.Header>
+                    </Card.Link>
+                ))}
+            </div>
         </Container>
     );
 };

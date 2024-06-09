@@ -118,7 +118,7 @@ export default function Project() {
             <Component components={postComponents} />
             <div className="flex flex-col gap-y-4">
                 <Typography.Serif className="text-2xl font-bold">Project posts</Typography.Serif>
-                <div className="grid grid-cols-1 md:grid-cols-2">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {((projectPosts ?? []) as ProjectPost[]).map(post => (
                         <Card.Link to={`${post.slug}`} key={post.slug}>
                             <Card.Header>

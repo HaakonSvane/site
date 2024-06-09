@@ -7,9 +7,9 @@ import { Container } from "./Container";
 import { NavMenu } from "./NavMenu";
 import { ThemeButton } from "./ThemeButton";
 import { Typography } from "./Typography";
-import { DropdownMenu } from "./Dropdown";
 import { Button } from "./Button";
 import { Menu } from "lucide-react";
+import { SideSheet } from "./SideSheet";
 
 export const NavBar = () => {
     const [theme] = useTheme();
@@ -36,45 +36,34 @@ export const NavBar = () => {
                         </NavMenu.Item>
                     </NavMenu.List>
 
-                    <DropdownMenu>
-                        <DropdownMenu.Trigger asChild className="flex md:hidden">
+                    <SideSheet>
+                        <SideSheet.Trigger asChild className="flex md:hidden">
                             <Button variant="outline" className="rounded-full">
                                 <Menu />
                             </Button>
-                        </DropdownMenu.Trigger>
-                        <DropdownMenu.Portal>
-                            <DropdownMenu.Content className="z-20 w-56 bg-secondary p-4 rounded-sm shadow-sm">
-                                <DropdownMenu.Arrow className="w-4 h-4 text-white" />
-                                <NavMenu.List
-                                    data-orientation="vertical"
-                                    className="flex-col text-xl items-start gap-2"
-                                >
-                                    <DropdownMenu.Item asChild>
-                                        <NavMenu.Item value="projects" asChild>
-                                            <NavLink
-                                                to="/projects"
-                                                className="w-full font-semibold"
-                                            >
-                                                Projects
-                                            </NavLink>
-                                        </NavMenu.Item>
-                                    </DropdownMenu.Item>
+                        </SideSheet.Trigger>
 
-                                    <DropdownMenu.Item asChild>
-                                        <NavMenu.Item value="blog" asChild>
-                                            <NavLink to="/blog" className="w-full font-semibold">
-                                                Blog
-                                            </NavLink>
-                                        </NavMenu.Item>
-                                    </DropdownMenu.Item>
-                                </NavMenu.List>
-                                <DropdownMenu.Separator />
-                                <DropdownMenu.Item>
-                                    <ThemeButton />
-                                </DropdownMenu.Item>
-                            </DropdownMenu.Content>
-                        </DropdownMenu.Portal>
-                    </DropdownMenu>
+                        <SideSheet.Content>
+                            <NavMenu.List
+                                data-orientation="vertical"
+                                className="flex-col text-xl items-start gap-2"
+                            >
+                                <NavMenu.Item value="projects" asChild>
+                                    <NavLink to="/projects" className="w-full font-semibold">
+                                        Projects
+                                    </NavLink>
+                                </NavMenu.Item>
+
+                                <NavMenu.Item value="blog" asChild>
+                                    <NavLink to="/blog" className="w-full font-semibold">
+                                        Blog
+                                    </NavLink>
+                                </NavMenu.Item>
+                            </NavMenu.List>
+
+                            <ThemeButton />
+                        </SideSheet.Content>
+                    </SideSheet>
 
                     <ThemeButton className="hidden md:flex" />
                 </Container>

@@ -19,9 +19,7 @@ export const NavMenuLink = forwardRef<
             asChild
             {...rest}
         >
-            <NavLink to={href ?? "#"} className={({ isActive }) => (isActive ? "font-bold" : "")}>
-                {children}
-            </NavLink>
+            <NavLink to={href ?? "#"}>{children}</NavLink>
         </NavigationMenuLink>
     );
 });

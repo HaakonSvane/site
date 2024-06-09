@@ -6,10 +6,7 @@ export const NavMenuList = forwardRef<HTMLUListElement, NavigationMenuListProps>
     ({ className, children, ...rest }, ref) => {
         return (
             <List
-                className={tw(
-                    "group flex flex-1 list-none items-center justify-center space-x-1",
-                    className,
-                )}
+                className={tw("group flex flex-1 list-none items-center justify-center", className)}
                 ref={ref}
                 {...rest}
             >

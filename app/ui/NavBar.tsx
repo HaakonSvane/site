@@ -10,6 +10,7 @@ import { Typography } from "./Typography";
 import { Button } from "./Button";
 import { Menu } from "lucide-react";
 import { SideSheet } from "./SideSheet";
+import { Separator } from "./Separator";
 
 export const NavBar = () => {
     const [theme] = useTheme();
@@ -43,25 +44,27 @@ export const NavBar = () => {
                             </Button>
                         </SideSheet.Trigger>
 
-                        <SideSheet.Content>
+                        <SideSheet.Content className="flex flex-col">
                             <NavMenu.List
                                 data-orientation="vertical"
                                 className="flex-col text-xl items-start gap-2"
                             >
                                 <NavMenu.Item value="projects" asChild>
-                                    <NavLink to="/projects" className="w-full font-semibold">
+                                    <Link to="/projects" className="w-full font-semibold">
                                         Projects
-                                    </NavLink>
+                                    </Link>
                                 </NavMenu.Item>
 
                                 <NavMenu.Item value="blog" asChild>
-                                    <NavLink to="/blog" className="w-full font-semibold">
+                                    <Link to="/blog" className="w-full font-semibold">
                                         Blog
-                                    </NavLink>
+                                    </Link>
                                 </NavMenu.Item>
                             </NavMenu.List>
 
-                            <ThemeButton />
+                            <Separator />
+
+                            <ThemeButton variant="outline" />
                         </SideSheet.Content>
                     </SideSheet>
 

@@ -12,6 +12,7 @@
         "codegen": "graphql-codegen --config codegen.config.ts"
     },
     "dependencies": {
+        "@radix-ui/react-dropdown-menu": "^2.0.6",
         "@radix-ui/react-navigation-menu": "^1.1.4",
         "@remix-run/css-bundle": "^2.9.1",
         "@remix-run/node": "^2.9.1",

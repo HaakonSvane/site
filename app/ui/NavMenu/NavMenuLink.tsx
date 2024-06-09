@@ -1,5 +1,5 @@
 import { NavigationMenuLink, NavigationMenuLinkProps } from "@radix-ui/react-navigation-menu";
-import { Link } from "@remix-run/react";
+import { NavLink } from "@remix-run/react";
 import { cva } from "class-variance-authority";
 import { HtmlHTMLAttributes, forwardRef } from "react";
 import { tw } from "~/lib/utility";
@@ -19,7 +19,9 @@ export const NavMenuLink = forwardRef<
             asChild
             {...rest}
         >
-            <Link to={href ?? "#"}>{children}</Link>
+            <NavLink to={href ?? "#"} className={({ isActive }) => (isActive ? "font-bold" : "")}>
+                {children}
+            </NavLink>
         </NavigationMenuLink>
     );
 });

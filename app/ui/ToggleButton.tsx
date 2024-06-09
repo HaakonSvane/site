@@ -10,12 +10,14 @@ export type ToggleButtonProps<T, K extends T> = {
         value: T;
     }[];
     onChange: (value: K) => void;
-};
+} & Omit<React.ComponentProps<typeof Button>, "onClick" | "onChange">;
 
 export const ToggleButton = <T, K extends T>({
     value,
     values,
     onChange,
+    className,
+    ...rest
 }: ToggleButtonProps<T, K>) => {
     const currentValue = values.find(v => v.value === value);
 
@@ -27,7 +29,12 @@ export const ToggleButton = <T, K extends T>({
     };
 
     return (
-        <Button variant="ghost" className={tw("flex flex-row gap-2")} onClick={setNextValue}>
+        <Button
+            variant="ghost"
+            className={tw("flex flex-row gap-2", className)}
+            onClick={setNextValue}
+            {...rest}
+        >
             {currentValue?.icon && <currentValue.icon />}
             {currentValue?.label}
         </Button>

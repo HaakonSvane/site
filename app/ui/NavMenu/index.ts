@@ -11,6 +11,7 @@ type NavMenuFamily = typeof RadixNavigationMenu.Root & {
     Link: typeof NavMenuLink;
     List: typeof NavMenuList;
     ListItem: typeof NavMenuListItem;
+    Indicator: typeof RadixNavigationMenu.Indicator;
 };
 
 export const NavMenu = RadixNavigationMenu.Root as NavMenuFamily;
@@ -21,3 +22,4 @@ NavMenu.Content = RadixNavigationMenu.Content;
 NavMenu.Link = NavMenuLink;
 NavMenu.List = NavMenuList;
 NavMenu.ListItem = NavMenuListItem;
+NavMenu.Indicator = RadixNavigationMenu.Indicator;

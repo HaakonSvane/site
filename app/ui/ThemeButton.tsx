@@ -1,8 +1,12 @@
-import { Theme, useTheme } from "remix-themes";
-import { ToggleButton } from "./ToggleButton";
 import { Moon, Sun } from "lucide-react";
+import React from "react";
+import { Theme, useTheme } from "remix-themes";
+import { Button } from "./Button";
+import { ToggleButton } from "./ToggleButton";
 
-export const ThemeButton = () => {
+type ThemeButtonProps = Omit<React.ComponentProps<typeof Button>, "value" | "onChange">;
+
+export const ThemeButton = ({ ...rest }: ThemeButtonProps) => {
     const [theme, setTheme] = useTheme();
     return (
         <ToggleButton
@@ -13,6 +17,7 @@ export const ThemeButton = () => {
                 // { icon: SunMoon, label: "Auto", value: null },
             ]}
             onChange={setTheme}
+            {...rest}
         />
     );
 };

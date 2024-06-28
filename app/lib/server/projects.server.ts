@@ -77,9 +77,11 @@ export async function getProjectPost(projectSlug: string, postSlug: string) {
     const rawPost = queryResponse.data?.projectCollection?.items
         .at(0)
         ?.postsCollection?.items.at(0) as ProjectPost | undefined;
-    const [rehypeHighlight, remarkGfm] = await Promise.all([
+    const [rehypeHighlight, rehypeMathjax, remarkGfm, remarkMath] = await Promise.all([
         import("rehype-highlight").then(mod => mod.default),
+        import("rehype-mathjax").then(mod => mod.default),
         import("remark-gfm").then(mod => mod.default),
+        import("remark-math").then(mod => mod.default),
     ]);
     if (!rawPost) {
         return null;
@@ -98,8 +100,12 @@ export async function getProjectPost(projectSlug: string, postSlug: string) {
             return options;
         },
         mdxOptions: options => {
-            options.remarkPlugins = [...(options.remarkPlugins ?? []), remarkGfm];
-            options.rehypePlugins = [...(options.rehypePlugins ?? []), rehypeHighlight];
+            options.remarkPlugins = [...(options.remarkPlugins ?? []), remarkGfm, remarkMath];
+            options.rehypePlugins = [
+                ...(options.rehypePlugins ?? []),
+                rehypeHighlight,
+                rehypeMathjax,
+            ];
             return options;
         },
     });

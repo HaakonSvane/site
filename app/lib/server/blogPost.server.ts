@@ -22,9 +22,11 @@ const GET_POST_QUERY = gql(`
 export async function getPost(slug: string) {
     const queryResponse = await qlQuery(GET_POST_QUERY, { slug: slug });
     const rawPost = queryResponse.data?.blogPostCollection?.items.at(0) as BlogPost | undefined;
-    const [rehypeHighlight, remarkGfm] = await Promise.all([
+    const [rehypeHighlight, rehypeMathjax, remarkGfm, remarkMath] = await Promise.all([
         import("rehype-highlight").then(mod => mod.default),
+        import("rehype-mathjax").then(mod => mod.default),
         import("remark-gfm").then(mod => mod.default),
+        import("remark-math").then(mod => mod.default),
     ]);
     if (!rawPost) {
         return null;
@@ -43,8 +45,12 @@ export async function getPost(slug: string) {
             return options;
         },
         mdxOptions: options => {
-            options.remarkPlugins = [...(options.remarkPlugins ?? []), remarkGfm];
-            options.rehypePlugins = [...(options.rehypePlugins ?? []), rehypeHighlight];
+            options.remarkPlugins = [...(options.remarkPlugins ?? []), remarkGfm, remarkMath];
+            options.rehypePlugins = [
+                ...(options.rehypePlugins ?? []),
+                rehypeHighlight,
+                rehypeMathjax,
+            ];
             return options;
         },
     });

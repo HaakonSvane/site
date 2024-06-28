@@ -1,4 +1,5 @@
 import { json } from "@remix-run/node";
+import { ArgumentNode, Kind } from "graphql";
 import {
     AnyVariables,
     Client,
@@ -19,12 +20,43 @@ const client = new Client({
     },
 });
 
+const injectPreviewArguments = <Data = unknown, Variables extends AnyVariables = AnyVariables>(
+    query: DocumentInput<Data, Variables>,
+) => {
+    if (typeof query === "object") {
+        const previewQueryArgumentNode: ArgumentNode = {
+            kind: Kind.ARGUMENT,
+            name: {
+                kind: Kind.NAME,
+                value: "preview",
+            },
+            value: {
+                kind: Kind.BOOLEAN,
+                value: true,
+            },
+        };
+        for (const definition of query.definitions) {
+            if (!("operation" in definition)) continue;
+            for (const selection of definition.selectionSet.selections) {
+                if (selection.kind !== Kind.FIELD) continue;
+                const newSelection = {
+                    ...selection,
+                    arguments: [...(selection.arguments ?? []), previewQueryArgumentNode],
+                };
+                Object.assign(selection, newSelection);
+            }
+        }
+    }
+};
+
 export const qlQuery = async <Data = unknown, Variables extends AnyVariables = AnyVariables>(
     query: DocumentInput<Data, Variables>,
     variables: Variables,
     context?: Partial<OperationContext>,
 ) => {
+    if (process.env.ENV === "dev") injectPreviewArguments(query);
     const response = await client.query(query, variables, context);
+
     if (response.error?.networkError) {
         throw json<JsonErrorResponsePayload>({
             message: response.error.networkError.message,

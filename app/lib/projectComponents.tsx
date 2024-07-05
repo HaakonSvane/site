@@ -33,7 +33,7 @@ export const postComponents: MDXComponent = {
     ),
     h4: props => (
         <Typography.Serif
-            className={tw("[&:not(:first-child)]:mt-6 leading-7", props.className)}
+            className={tw("[&:not(:first-child)]:mt-6 leading-8", props.className)}
             {...props}
         />
     ),
@@ -45,13 +45,14 @@ export const postComponents: MDXComponent = {
         />
     ),
     p: props => (
-        <Typography.Sans as="span" className={tw("leading-7", props.className)} {...props} />
+        <Typography.Sans as="span" className={tw("leading-8", props.className)} {...props} />
     ),
     table: props => <table className={tw("w-full", props.className)} {...props} />,
     tr: props => <tr className={tw("", props.className)} {...props} />,
     th: props => (
         <th className={tw("m-0 border-t border-border p-0", props.className)} {...props} />
     ),
+    // ol: props => (<ol className={tw("list-item", props.className) {...props}}/>),
     li: props => (
         <li className={tw("my-4 ml-6 list-disc [&>li]:mt-2", props.className)} {...props} />
     ),

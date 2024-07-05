@@ -3,15 +3,12 @@
 /* Sans font */
 @import url("https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap");
 
-@import url("https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/atom-one-light.min.css")
-    screen and (prefers-color-scheme: light);
-@import url("https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/atom-one-dark.min.css")
-    screen and (prefers-color-scheme: dark);
-
 /* Tailwind CSS */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@import "hljs.css";
 
 @layer base {
     :root {
@@ -50,6 +47,20 @@
         --ring: 20 14.3% 4.1%;
 
         --radius: 0.3rem;
+
+        /* hljs */
+        --hljs-base: #fafafa;
+        --hljs-mono-1: #383a42;
+        --hljs-mono-2: #686b77;
+        --hljs-mono-3: #a0a1a7;
+        --hljs-hue-1: #0184bb;
+        --hljs-hue-2: #4078f2;
+        --hljs-hue-3: #a626a4;
+        --hljs-hue-4: #50a14f;
+        --hljs-hue-5: #e45649;
+        --hljs-hue-5-2: #c91243;
+        --hljs-hue-6: #986801;
+        --hljs-hue-6-2: #c18401;
     }
 
     .dark {
@@ -80,5 +91,19 @@
         --border: 229 20% 32%;
         --input: 12 6.5% 15.1%;
         --ring: 24 5.7% 82.9%;
+
+        /* hljs */
+        --hljs-base: #282c34;
+        --hljs-mono-1: #abb2bf;
+        --hljs-mono-2: #818896;
+        --hljs-mono-3: #5c6370;
+        --hljs-hue-1: #56b6c2;
+        --hljs-hue-2: #61aeee;
+        --hljs-hue-3: #c678dd;
+        --hljs-hue-4: #98c379;
+        --hljs-hue-5: #e06c75;
+        --hljs-hue-5-2: #be5046;
+        --hljs-hue-6: #d19a66;
+        --hljs-hue-6-2: #e6c07b;
     }
 }

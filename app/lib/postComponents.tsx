@@ -34,7 +34,7 @@ export const postComponents: MDXComponent = {
     h4: props => (
         <Typography.Serif
             className={tw(
-                "[&:not(:first-child)]:mt-6 leading-7 text-xl font-semibold",
+                "[&:not(:first-child)]:mt-6 leading-8 text-xl font-semibold",
                 props.className,
             )}
             {...props}
@@ -42,13 +42,13 @@ export const postComponents: MDXComponent = {
     ),
     h5: props => (
         <Typography.Serif
-            className={tw("[&:not(:first-child)]:mt-6 leading-7 text-lg", props.className)}
+            className={tw("[&:not(:first-child)]:mt-6 leading-8 text-lg", props.className)}
             {...props}
         />
     ),
     h6: props => (
         <Typography.Serif
-            className={tw("[&:not(:first-child)]:mt-6 leading-7 text-md", props.className)}
+            className={tw("[&:not(:first-child)]:mt-6 leading-8 text-md", props.className)}
             {...props}
         />
     ),
@@ -59,8 +59,10 @@ export const postComponents: MDXComponent = {
             {...props}
         />
     ),
-    p: props => <Typography.Sans className={tw("leading-7", props.className)} {...props} />,
-    table: props => <table className={tw("w-full", props.className)} {...props} />,
+    p: props => <Typography.Sans className={tw("leading-8 mb-6", props.className)} {...props} />,
+    table: props => (
+        <table className={tw("my-6 w-full max-w-lg mx-auto", props.className)} {...props} />
+    ),
     tr: props => <tr className={tw("", props.className)} {...props} />,
     th: props => (
         <th className={tw("m-0 border-t border-border p-0", props.className)} {...props} />
@@ -70,14 +72,20 @@ export const postComponents: MDXComponent = {
     ),
     code: props => (
         <code
+            {...props}
             className={tw(
-                "relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold",
+                "relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold transition-colors",
                 props.className,
             )}
-            {...props}
         />
     ),
     small: props => (
         <small className={tw("text-sm font-medium leading-none", props.className)} {...props} />
+    ),
+    svg: props => <svg className={tw("inline", props.className)} {...props} />,
+    img: props => (
+        <div className="flex flex-1 max-w-[80%]">
+            <img alt="[missing alt]" {...props} className={tw("object-cover", props.className)} />
+        </div>
     ),
 };

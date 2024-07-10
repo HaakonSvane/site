@@ -15,7 +15,7 @@ export const meta: MetaFunction = () => {
 export default function Index() {
     const [theme] = useTheme();
     return (
-        <Container className="flex flex-1 justify-center flex-col gap-4 max-w-lg">
+        <Container className="justify-center gap-4 max-w-lg">
             <div className="flex flex-row gap-8 md:gap-6 items-center">
                 <img
                     src={theme === "dark" ? logoDark : logoLight}

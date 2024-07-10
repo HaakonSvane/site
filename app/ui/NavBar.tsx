@@ -15,9 +15,9 @@ import { Typography } from "./Typography";
 export const NavBar = () => {
     const [theme] = useTheme();
     return (
-        <header className="sticky top-0 z-10 backdrop-filter backdrop-blur">
-            <NavMenu>
-                <Container className="flex items-center justify-between h-16 backdrop-filter backdrop-blur">
+        <header className="flex h-16 sticky top-0 z-10 backdrop-filter backdrop-blur">
+            <NavMenu className="flex flex-1">
+                <Container className="flex flex-1 items-center justify-between">
                     <Link className="flex gap-4 flex-row align-center justify-center" to="/">
                         <img
                             src={theme === "dark" ? logoDark : logoLight}

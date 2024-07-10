@@ -70,22 +70,13 @@ export const postComponents: MDXComponent = {
     li: props => (
         <li className={tw("my-4 ml-6 list-disc [&>li]:mt-2", props.className)} {...props} />
     ),
-    code: props => (
-        <code
-            {...props}
-            className={tw(
-                "relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold transition-colors",
-                props.className,
-            )}
-        />
-    ),
+    pre: props => <pre {...props} className="overflow-x-auto" />,
+    code: props => <code {...props} className={tw("", props.className)} />,
     small: props => (
         <small className={tw("text-sm font-medium leading-none", props.className)} {...props} />
     ),
     svg: props => <svg className={tw("inline", props.className)} {...props} />,
     img: props => (
-        <div className="flex flex-1 max-w-[80%]">
-            <img alt="[missing alt]" {...props} className={tw("object-cover", props.className)} />
-        </div>
+        <img alt="[missing alt]" {...props} className={tw("object-cover", props.className)} />
     ),
 };

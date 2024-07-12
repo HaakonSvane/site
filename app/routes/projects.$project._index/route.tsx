@@ -123,19 +123,21 @@ export default function Project() {
                         <Card.Link to={`${post.slug}`} key={post.slug}>
                             <Card.Header>
                                 <Card.Title>{post.title}</Card.Title>
-                                <div className="flex flex-row gap-x-4">
+                            </Card.Header>
+                            <Card.Content>
+                                <Card.ContentRow>
                                     {post.leadImage?.url && (
                                         <img
                                             src={post.leadImage.url}
-                                            alt={post.leadImage.title ?? "Blog post image"}
+                                            alt={post.leadImage.title ?? "Project post image"}
                                             className="w-12 h-12"
                                         />
                                     )}
                                     <Card.Description className="text-card-foreground">
                                         {post.synopsis}
                                     </Card.Description>
-                                </div>
-                            </Card.Header>
+                                </Card.ContentRow>
+                            </Card.Content>
                         </Card.Link>
                     ))}
                 </div>

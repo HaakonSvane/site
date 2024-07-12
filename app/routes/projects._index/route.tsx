@@ -48,7 +48,9 @@ const Projects = () => {
                     <Card.Link to={`${project.slug}`} key={project.slug}>
                         <Card.Header className="flex gap-2">
                             <Card.Title>{project.title}</Card.Title>
-                            <div className="flex flex-row gap-x-4 items-center">
+                        </Card.Header>
+                        <Card.Content>
+                            <Card.ContentRow>
                                 {project.leadImage?.url && (
                                     <img
                                         src={project.leadImage.url}
@@ -59,8 +61,8 @@ const Projects = () => {
                                 <Card.Description className="text-card-foreground">
                                     {project.synopsis}
                                 </Card.Description>
-                            </div>
-                        </Card.Header>
+                            </Card.ContentRow>
+                        </Card.Content>
                     </Card.Link>
                 ))}
             </div>

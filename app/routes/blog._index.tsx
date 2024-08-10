@@ -34,7 +34,6 @@ const GET_POSTS_QUERY = gql(`
 export const loader = async () => {
     const getPosts = async () => {
         const queryResult = await qlQuery(GET_POSTS_QUERY, {});
-        await new Promise(resolve => setTimeout(resolve, 3000));
         const posts = (queryResult.data?.blogPostCollection?.items ?? []).filter(
             Boolean,
         ) as BlogPost[];

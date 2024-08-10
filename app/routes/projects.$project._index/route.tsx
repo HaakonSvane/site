@@ -10,8 +10,8 @@ import { qlQuery } from "~/lib/server/graphql.server";
 import { getProject } from "~/lib/server/projects.server";
 import { JsonErrorResponsePayload } from "~/lib/utility/errorResponse";
 import { Badge } from "~/ui/Badge";
-import { Card } from "~/ui/Card";
 import { Container } from "~/ui/Container";
+import { SiteItemCard } from "~/ui/SiteItem";
 import { Typography } from "~/ui/Typography";
 
 const GET_PROJECT_POSTS_QUERY = gql(`
@@ -120,25 +120,20 @@ export default function Project() {
                 <Typography.Serif className="text-2xl font-bold">Project posts</Typography.Serif>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {((projectPosts ?? []) as ProjectPost[]).map(post => (
-                        <Card.Link to={`${post.slug}`} key={post.slug}>
-                            <Card.Header>
-                                <Card.Title>{post.title}</Card.Title>
-                            </Card.Header>
-                            <Card.Content>
-                                <Card.ContentRow>
-                                    {post.leadImage?.url && (
-                                        <img
-                                            src={post.leadImage.url}
-                                            alt={post.leadImage.title ?? "Project post image"}
-                                            className="w-12 h-12"
-                                        />
-                                    )}
-                                    <Card.Description className="text-card-foreground">
-                                        {post.synopsis}
-                                    </Card.Description>
-                                </Card.ContentRow>
-                            </Card.Content>
-                        </Card.Link>
+                        <SiteItemCard
+                            key={post.slug}
+                            title={post.title ?? "[Missing title]"}
+                            description={post.synopsis ?? "[Missing synopsis]"}
+                            slug={post.slug!}
+                            leadImage={
+                                post.leadImage
+                                    ? {
+                                          title: post.leadImage.title ?? undefined,
+                                          url: post.leadImage.url!,
+                                      }
+                                    : undefined
+                            }
+                        />
                     ))}
                 </div>
             </div>

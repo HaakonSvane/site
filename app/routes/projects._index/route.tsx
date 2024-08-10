@@ -1,10 +1,11 @@
 import { MetaFunction, json } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { Await, useLoaderData } from "@remix-run/react";
+import { Suspense } from "react";
 import { gql } from "~/graphql";
 import { Project } from "~/graphql/graphql";
 import { qlQuery } from "~/lib/server/graphql.server";
-import { Card } from "~/ui/Card";
 import { Container } from "~/ui/Container";
+import { SiteItemCard, SiteItemCardSkeleton } from "~/ui/SiteItem";
 import { Typography } from "~/ui/Typography";
 
 export const meta: MetaFunction = () => {
@@ -38,33 +39,38 @@ export const loader = async () => {
 };
 
 const Projects = () => {
-    const projects = useLoaderData<typeof loader>();
+    const projectsPromise = useLoaderData<typeof loader>();
 
     return (
         <Container className="flex flex-1 flex-col gap-y-8">
             <Typography.Serif className="text-4xl font-bold">Projects</Typography.Serif>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {projects.map(project => (
-                    <Card.Link to={`${project.slug}`} key={project.slug}>
-                        <Card.Header className="flex gap-2">
-                            <Card.Title>{project.title}</Card.Title>
-                        </Card.Header>
-                        <Card.Content>
-                            <Card.ContentRow>
-                                {project.leadImage?.url && (
-                                    <img
-                                        src={project.leadImage.url}
-                                        alt={project.leadImage.title ?? "Project image"}
-                                        className="w-12 h-12"
-                                    />
-                                )}
-                                <Card.Description className="text-card-foreground">
-                                    {project.synopsis}
-                                </Card.Description>
-                            </Card.ContentRow>
-                        </Card.Content>
-                    </Card.Link>
-                ))}
+                <Suspense
+                    fallback={Array(3).map(index => (
+                        <SiteItemCardSkeleton key={index} />
+                    ))}
+                >
+                    <Await resolve={projectsPromise}>
+                        {projects =>
+                            projects.map(project => (
+                                <SiteItemCard
+                                    key={project.slug}
+                                    title={project.title ?? "[Missing title]"}
+                                    description={project.synopsis ?? "[Missing synopsis]"}
+                                    slug={project.slug!}
+                                    leadImage={
+                                        project.leadImage
+                                            ? {
+                                                  url: project.leadImage.url!,
+                                                  title: project.leadImage.title ?? undefined,
+                                              }
+                                            : undefined
+                                    }
+                                />
+                            ))
+                        }
+                    </Await>
+                </Suspense>
             </div>
         </Container>
     );

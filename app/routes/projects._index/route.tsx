@@ -1,4 +1,4 @@
-import { MetaFunction, json } from "@remix-run/node";
+import { MetaFunction, defer } from "@remix-run/node";
 import { Await, useLoaderData } from "@remix-run/react";
 import { Suspense } from "react";
 import { gql } from "~/graphql";
@@ -33,26 +33,34 @@ const GET_PROJECTS_QUERY = gql(`
 `);
 
 export const loader = async () => {
-    const queryResponse = await qlQuery(GET_PROJECTS_QUERY, {});
-    const posts = (queryResponse.data?.projectCollection?.items ?? []).filter(Boolean) as Project[];
-    return json(posts);
+    const getPosts = async () => {
+        const queryResponse = await qlQuery(GET_PROJECTS_QUERY, {});
+        const posts = (queryResponse.data?.projectCollection?.items ?? []).filter(
+            Boolean,
+        ) as Project[];
+        return posts;
+    };
+
+    return defer({ posts: getPosts() });
 };
 
 const Projects = () => {
-    const projectsPromise = useLoaderData<typeof loader>();
+    const { posts } = useLoaderData<typeof loader>();
 
     return (
         <Container className="flex flex-1 flex-col gap-y-8">
             <Typography.Serif className="text-4xl font-bold">Projects</Typography.Serif>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <Suspense
-                    fallback={Array(3).map(index => (
-                        <SiteItemCardSkeleton key={index} />
-                    ))}
+                    fallback={Array(3)
+                        .fill(0)
+                        .map(index => (
+                            <SiteItemCardSkeleton key={index} />
+                        ))}
                 >
-                    <Await resolve={projectsPromise}>
-                        {projects =>
-                            projects.map(project => (
+                    <Await resolve={posts}>
+                        {posts =>
+                            posts.map(project => (
                                 <SiteItemCard
                                     key={project.slug}
                                     title={project.title ?? "[Missing title]"}

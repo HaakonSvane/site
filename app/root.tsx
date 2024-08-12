@@ -14,6 +14,7 @@ import tailwindStyles from "~/tailwind.css";
 import { PreventFlashOnWrongTheme, ThemeProvider, useTheme } from "remix-themes";
 import { themeSessionResolver } from "./sessions.server";
 import { NavBar } from "./ui/NavBar";
+import { SpeedInsights } from "@vercel/speed-insights/remix";
 
 export const loader: LoaderFunction = async ({ request }) => {
     const { getTheme } = await themeSessionResolver(request);
@@ -35,6 +36,7 @@ function App() {
                 <meta charSet="utf-8" />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <Analytics />
+                <SpeedInsights />
                 <Meta />
                 <PreventFlashOnWrongTheme ssrTheme={Boolean(loaderData.theme)} />
                 <Links />

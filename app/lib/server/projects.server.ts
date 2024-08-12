@@ -5,7 +5,7 @@ import { bundleMDX } from "./mdx.server";
 
 const GET_PROJECT_QUERY = gql(`
     query GetProjectQuery($slug: String!) {
-        projectCollection(where: { slug: $slug }) {
+        projectCollection(where: { slug: $slug }, limit: 1) {
             items {
                 title
                 description
@@ -24,7 +24,7 @@ const GET_PROJECT_POST_QUERY = gql(`
     query GetProjectPostQuery($projectSlug: String!, $postSlug: String!) {
         projectCollection(where: { slug: $projectSlug }) {
             items {
-                postsCollection(where: {slug: $postSlug}) {
+                postsCollection(where: {slug: $postSlug}, limit: 1) {
                     items {
                         title
                         content

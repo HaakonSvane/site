@@ -68,6 +68,9 @@ type Sys {
   publishedAt: DateTime
   firstPublishedAt: DateTime
   publishedVersion: Int
+
+  # The locale that was requested.
+  locale: String
 }
 
 # A date-time string at UTC, such as 2007-12-03T10:15:30Z,
@@ -81,7 +84,7 @@ type ContentfulMetadata {
 }
 
 # Represents a tag entity for finding and organizing content easily.
-#     Find out more here: https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/content-tags
+#       Find out more here: https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/content-tags
 type ContentfulTag {
   id: String
   name: String
@@ -252,16 +255,21 @@ type ProjectPostCollection {
 }
 
 # A single post that belongs to a project. [See type definition](https://app.contentful.com/spaces/etyu8fms5usu/content_types/projectPost)
-type ProjectPost implements Entry {
+type ProjectPost implements Entry & _Node {
   sys: Sys!
   contentfulMetadata: ContentfulMetadata!
   linkedFrom(allowedLocales: [String]): ProjectPostLinkingCollections
+  _id: ID!
   title(locale: String): String
   synopsis(locale: String): String
   slug(locale: String): String
   project(preview: Boolean, locale: String, where: ProjectFilter): Project
   leadImage(preview: Boolean, locale: String): Asset
   content(locale: String): String
+}
+
+interface _Node {
+  _id: ID!
 }
 
 type ProjectPostLinkingCollections {
@@ -288,10 +296,11 @@ type ProjectCollection {
 }
 
 # A single project entry for the project section of the site. [See type definition](https://app.contentful.com/spaces/etyu8fms5usu/content_types/project)
-type Project implements Entry {
+type Project implements Entry & _Node {
   sys: Sys!
   contentfulMetadata: ContentfulMetadata!
   linkedFrom(allowedLocales: [String]): ProjectLinkingCollections
+  _id: ID!
   title(locale: String): String
   slug(locale: String): String
   synopsis(locale: String): String
@@ -615,10 +624,11 @@ type BlogPostCollection {
 }
 
 # A single blog post entry for the blog section of the site. [See type definition](https://app.contentful.com/spaces/etyu8fms5usu/content_types/blogPost)
-type BlogPost implements Entry {
+type BlogPost implements Entry & _Node {
   sys: Sys!
   contentfulMetadata: ContentfulMetadata!
   linkedFrom(allowedLocales: [String]): BlogPostLinkingCollections
+  _id: ID!
   title(locale: String): String
   synopsis(locale: String): String
   slug(locale: String): String
@@ -835,8 +845,4 @@ enum EntryOrder {
   sys_firstPublishedAt_DESC
   sys_publishedVersion_ASC
   sys_publishedVersion_DESC
-}
-
-interface _Node {
-  _id: ID!
 }

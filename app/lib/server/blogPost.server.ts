@@ -5,7 +5,7 @@ import { bundleMDX } from "./mdx.server";
 
 const GET_POST_QUERY = gql(`
     query GetPostQuery($slug: String!) {
-        blogPostCollection(where: { slug: $slug }) {
+        blogPostCollection(where: { slug: $slug }, limit: 1) {
             items {
                 title
                 content

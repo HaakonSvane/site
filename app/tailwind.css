@@ -10,6 +10,10 @@
 
 @import "hljs.css";
 
+html {
+    font-size: 17px;
+}
+
 @layer base {
     :root {
         --background: 225 20% 96%;

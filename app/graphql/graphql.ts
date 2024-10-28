@@ -20,75 +20,6 @@ export type Scalars = {
   Quality: { input: any; output: any; }
 };
 
-export type Asset = {
-  __typename?: 'Asset';
-  contentType?: Maybe<Scalars['String']['output']>;
-  contentfulMetadata: ContentfulMetadata;
-  description?: Maybe<Scalars['String']['output']>;
-  fileName?: Maybe<Scalars['String']['output']>;
-  height?: Maybe<Scalars['Int']['output']>;
-  linkedFrom?: Maybe<AssetLinkingCollections>;
-  size?: Maybe<Scalars['Int']['output']>;
-  sys: Sys;
-  title?: Maybe<Scalars['String']['output']>;
-  url?: Maybe<Scalars['String']['output']>;
-  width?: Maybe<Scalars['Int']['output']>;
-};
-
-
-export type AssetContentTypeArgs = {
-  locale?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-export type AssetDescriptionArgs = {
-  locale?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-export type AssetFileNameArgs = {
-  locale?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-export type AssetHeightArgs = {
-  locale?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-export type AssetLinkedFromArgs = {
-  allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-
-export type AssetSizeArgs = {
-  locale?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-export type AssetTitleArgs = {
-  locale?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-export type AssetUrlArgs = {
-  locale?: InputMaybe<Scalars['String']['input']>;
-  transform?: InputMaybe<ImageTransformOptions>;
-};
-
-
-export type AssetWidthArgs = {
-  locale?: InputMaybe<Scalars['String']['input']>;
-};
-
-export type AssetCollection = {
-  __typename?: 'AssetCollection';
-  items: Array<Maybe<Asset>>;
-  limit: Scalars['Int']['output'];
-  skip: Scalars['Int']['output'];
-  total: Scalars['Int']['output'];
-};
-
 export type AssetFilter = {
   AND?: InputMaybe<Array<InputMaybe<AssetFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<AssetFilter>>>;
@@ -158,46 +89,6 @@ export type AssetFilter = {
   width_not_in?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
 };
 
-export type AssetLinkingCollections = {
-  __typename?: 'AssetLinkingCollections';
-  blogPostCollection?: Maybe<BlogPostCollection>;
-  entryCollection?: Maybe<EntryCollection>;
-  projectCollection?: Maybe<ProjectCollection>;
-  projectPostCollection?: Maybe<ProjectPostCollection>;
-};
-
-
-export type AssetLinkingCollectionsBlogPostCollectionArgs = {
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  locale?: InputMaybe<Scalars['String']['input']>;
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type AssetLinkingCollectionsEntryCollectionArgs = {
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  locale?: InputMaybe<Scalars['String']['input']>;
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type AssetLinkingCollectionsProjectCollectionArgs = {
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  locale?: InputMaybe<Scalars['String']['input']>;
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type AssetLinkingCollectionsProjectPostCollectionArgs = {
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  locale?: InputMaybe<Scalars['String']['input']>;
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-};
-
 export enum AssetOrder {
   ContentTypeAsc = 'contentType_ASC',
   ContentTypeDesc = 'contentType_DESC',
@@ -220,58 +111,6 @@ export enum AssetOrder {
   WidthAsc = 'width_ASC',
   WidthDesc = 'width_DESC'
 }
-
-export type BlogPost = Entry & _Node & {
-  __typename?: 'BlogPost';
-  _id: Scalars['ID']['output'];
-  content?: Maybe<Scalars['String']['output']>;
-  contentfulMetadata: ContentfulMetadata;
-  leadImage?: Maybe<Asset>;
-  linkedFrom?: Maybe<BlogPostLinkingCollections>;
-  slug?: Maybe<Scalars['String']['output']>;
-  synopsis?: Maybe<Scalars['String']['output']>;
-  sys: Sys;
-  title?: Maybe<Scalars['String']['output']>;
-};
-
-
-export type BlogPostContentArgs = {
-  locale?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-export type BlogPostLeadImageArgs = {
-  locale?: InputMaybe<Scalars['String']['input']>;
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-
-export type BlogPostLinkedFromArgs = {
-  allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-
-export type BlogPostSlugArgs = {
-  locale?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-export type BlogPostSynopsisArgs = {
-  locale?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-export type BlogPostTitleArgs = {
-  locale?: InputMaybe<Scalars['String']['input']>;
-};
-
-export type BlogPostCollection = {
-  __typename?: 'BlogPostCollection';
-  items: Array<Maybe<BlogPost>>;
-  limit: Scalars['Int']['output'];
-  skip: Scalars['Int']['output'];
-  total: Scalars['Int']['output'];
-};
 
 export type BlogPostFilter = {
   AND?: InputMaybe<Array<InputMaybe<BlogPostFilter>>>;
@@ -309,19 +148,6 @@ export type BlogPostFilter = {
   title_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
-export type BlogPostLinkingCollections = {
-  __typename?: 'BlogPostLinkingCollections';
-  entryCollection?: Maybe<EntryCollection>;
-};
-
-
-export type BlogPostLinkingCollectionsEntryCollectionArgs = {
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  locale?: InputMaybe<Scalars['String']['input']>;
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-};
-
 export enum BlogPostOrder {
   SlugAsc = 'slug_ASC',
   SlugDesc = 'slug_DESC',
@@ -337,11 +163,6 @@ export enum BlogPostOrder {
   TitleDesc = 'title_DESC'
 }
 
-export type ContentfulMetadata = {
-  __typename?: 'ContentfulMetadata';
-  tags: Array<Maybe<ContentfulTag>>;
-};
-
 export type ContentfulMetadataFilter = {
   tags?: InputMaybe<ContentfulMetadataTagsFilter>;
   tags_exists?: InputMaybe<Scalars['Boolean']['input']>;
@@ -351,25 +172,6 @@ export type ContentfulMetadataTagsFilter = {
   id_contains_all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   id_contains_none?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   id_contains_some?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-export type ContentfulTag = {
-  __typename?: 'ContentfulTag';
-  id?: Maybe<Scalars['String']['output']>;
-  name?: Maybe<Scalars['String']['output']>;
-};
-
-export type Entry = {
-  contentfulMetadata: ContentfulMetadata;
-  sys: Sys;
-};
-
-export type EntryCollection = {
-  __typename?: 'EntryCollection';
-  items: Array<Maybe<Entry>>;
-  limit: Scalars['Int']['output'];
-  skip: Scalars['Int']['output'];
-  total: Scalars['Int']['output'];
 };
 
 export type EntryFilter = {
@@ -433,81 +235,6 @@ export type ImageTransformOptions = {
   width?: InputMaybe<Scalars['Dimension']['input']>;
 };
 
-export type Project = Entry & _Node & {
-  __typename?: 'Project';
-  _id: Scalars['ID']['output'];
-  contentfulMetadata: ContentfulMetadata;
-  description?: Maybe<Scalars['String']['output']>;
-  githubUrl?: Maybe<Scalars['String']['output']>;
-  leadImage?: Maybe<Asset>;
-  linkedFrom?: Maybe<ProjectLinkingCollections>;
-  postsCollection?: Maybe<ProjectPostsCollection>;
-  siteUrl?: Maybe<Scalars['String']['output']>;
-  slug?: Maybe<Scalars['String']['output']>;
-  synopsis?: Maybe<Scalars['String']['output']>;
-  sys: Sys;
-  title?: Maybe<Scalars['String']['output']>;
-};
-
-
-export type ProjectDescriptionArgs = {
-  locale?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-export type ProjectGithubUrlArgs = {
-  locale?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-export type ProjectLeadImageArgs = {
-  locale?: InputMaybe<Scalars['String']['input']>;
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-
-export type ProjectLinkedFromArgs = {
-  allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-
-export type ProjectPostsCollectionArgs = {
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  locale?: InputMaybe<Scalars['String']['input']>;
-  order?: InputMaybe<Array<InputMaybe<ProjectPostsCollectionOrder>>>;
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  where?: InputMaybe<ProjectPostFilter>;
-};
-
-
-export type ProjectSiteUrlArgs = {
-  locale?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-export type ProjectSlugArgs = {
-  locale?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-export type ProjectSynopsisArgs = {
-  locale?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-export type ProjectTitleArgs = {
-  locale?: InputMaybe<Scalars['String']['input']>;
-};
-
-export type ProjectCollection = {
-  __typename?: 'ProjectCollection';
-  items: Array<Maybe<Project>>;
-  limit: Scalars['Int']['output'];
-  skip: Scalars['Int']['output'];
-  total: Scalars['Int']['output'];
-};
-
 export type ProjectFilter = {
   AND?: InputMaybe<Array<InputMaybe<ProjectFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<ProjectFilter>>>;
@@ -560,29 +287,6 @@ export type ProjectFilter = {
   title_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
-export type ProjectLinkingCollections = {
-  __typename?: 'ProjectLinkingCollections';
-  entryCollection?: Maybe<EntryCollection>;
-  projectPostCollection?: Maybe<ProjectPostCollection>;
-};
-
-
-export type ProjectLinkingCollectionsEntryCollectionArgs = {
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  locale?: InputMaybe<Scalars['String']['input']>;
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type ProjectLinkingCollectionsProjectPostCollectionArgs = {
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  locale?: InputMaybe<Scalars['String']['input']>;
-  order?: InputMaybe<Array<InputMaybe<ProjectLinkingCollectionsProjectPostCollectionOrder>>>;
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-};
-
 export enum ProjectLinkingCollectionsProjectPostCollectionOrder {
   SlugAsc = 'slug_ASC',
   SlugDesc = 'slug_DESC',
@@ -616,66 +320,6 @@ export enum ProjectOrder {
   TitleAsc = 'title_ASC',
   TitleDesc = 'title_DESC'
 }
-
-export type ProjectPost = Entry & _Node & {
-  __typename?: 'ProjectPost';
-  _id: Scalars['ID']['output'];
-  content?: Maybe<Scalars['String']['output']>;
-  contentfulMetadata: ContentfulMetadata;
-  leadImage?: Maybe<Asset>;
-  linkedFrom?: Maybe<ProjectPostLinkingCollections>;
-  project?: Maybe<Project>;
-  slug?: Maybe<Scalars['String']['output']>;
-  synopsis?: Maybe<Scalars['String']['output']>;
-  sys: Sys;
-  title?: Maybe<Scalars['String']['output']>;
-};
-
-
-export type ProjectPostContentArgs = {
-  locale?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-export type ProjectPostLeadImageArgs = {
-  locale?: InputMaybe<Scalars['String']['input']>;
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-
-export type ProjectPostLinkedFromArgs = {
-  allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-
-export type ProjectPostProjectArgs = {
-  locale?: InputMaybe<Scalars['String']['input']>;
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
-  where?: InputMaybe<ProjectFilter>;
-};
-
-
-export type ProjectPostSlugArgs = {
-  locale?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-export type ProjectPostSynopsisArgs = {
-  locale?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-export type ProjectPostTitleArgs = {
-  locale?: InputMaybe<Scalars['String']['input']>;
-};
-
-export type ProjectPostCollection = {
-  __typename?: 'ProjectPostCollection';
-  items: Array<Maybe<ProjectPost>>;
-  limit: Scalars['Int']['output'];
-  skip: Scalars['Int']['output'];
-  total: Scalars['Int']['output'];
-};
 
 export type ProjectPostFilter = {
   AND?: InputMaybe<Array<InputMaybe<ProjectPostFilter>>>;
@@ -715,29 +359,6 @@ export type ProjectPostFilter = {
   title_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
-export type ProjectPostLinkingCollections = {
-  __typename?: 'ProjectPostLinkingCollections';
-  entryCollection?: Maybe<EntryCollection>;
-  projectCollection?: Maybe<ProjectCollection>;
-};
-
-
-export type ProjectPostLinkingCollectionsEntryCollectionArgs = {
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  locale?: InputMaybe<Scalars['String']['input']>;
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type ProjectPostLinkingCollectionsProjectCollectionArgs = {
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  locale?: InputMaybe<Scalars['String']['input']>;
-  order?: InputMaybe<Array<InputMaybe<ProjectPostLinkingCollectionsProjectCollectionOrder>>>;
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-};
-
 export enum ProjectPostLinkingCollectionsProjectCollectionOrder {
   GithubUrlAsc = 'githubUrl_ASC',
   GithubUrlDesc = 'githubUrl_DESC',
@@ -772,14 +393,6 @@ export enum ProjectPostOrder {
   TitleDesc = 'title_DESC'
 }
 
-export type ProjectPostsCollection = {
-  __typename?: 'ProjectPostsCollection';
-  items: Array<Maybe<ProjectPost>>;
-  limit: Scalars['Int']['output'];
-  skip: Scalars['Int']['output'];
-  total: Scalars['Int']['output'];
-};
-
 export enum ProjectPostsCollectionOrder {
   SlugAsc = 'slug_ASC',
   SlugDesc = 'slug_DESC',
@@ -794,116 +407,6 @@ export enum ProjectPostsCollectionOrder {
   TitleAsc = 'title_ASC',
   TitleDesc = 'title_DESC'
 }
-
-export type Query = {
-  __typename?: 'Query';
-  _node?: Maybe<_Node>;
-  asset?: Maybe<Asset>;
-  assetCollection?: Maybe<AssetCollection>;
-  blogPost?: Maybe<BlogPost>;
-  blogPostCollection?: Maybe<BlogPostCollection>;
-  entryCollection?: Maybe<EntryCollection>;
-  project?: Maybe<Project>;
-  projectCollection?: Maybe<ProjectCollection>;
-  projectPost?: Maybe<ProjectPost>;
-  projectPostCollection?: Maybe<ProjectPostCollection>;
-};
-
-
-export type Query_NodeArgs = {
-  id: Scalars['ID']['input'];
-  locale?: InputMaybe<Scalars['String']['input']>;
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-
-export type QueryAssetArgs = {
-  id: Scalars['String']['input'];
-  locale?: InputMaybe<Scalars['String']['input']>;
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-
-export type QueryAssetCollectionArgs = {
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  locale?: InputMaybe<Scalars['String']['input']>;
-  order?: InputMaybe<Array<InputMaybe<AssetOrder>>>;
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  where?: InputMaybe<AssetFilter>;
-};
-
-
-export type QueryBlogPostArgs = {
-  id: Scalars['String']['input'];
-  locale?: InputMaybe<Scalars['String']['input']>;
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-
-export type QueryBlogPostCollectionArgs = {
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  locale?: InputMaybe<Scalars['String']['input']>;
-  order?: InputMaybe<Array<InputMaybe<BlogPostOrder>>>;
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  where?: InputMaybe<BlogPostFilter>;
-};
-
-
-export type QueryEntryCollectionArgs = {
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  locale?: InputMaybe<Scalars['String']['input']>;
-  order?: InputMaybe<Array<InputMaybe<EntryOrder>>>;
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  where?: InputMaybe<EntryFilter>;
-};
-
-
-export type QueryProjectArgs = {
-  id: Scalars['String']['input'];
-  locale?: InputMaybe<Scalars['String']['input']>;
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-
-export type QueryProjectCollectionArgs = {
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  locale?: InputMaybe<Scalars['String']['input']>;
-  order?: InputMaybe<Array<InputMaybe<ProjectOrder>>>;
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  where?: InputMaybe<ProjectFilter>;
-};
-
-
-export type QueryProjectPostArgs = {
-  id: Scalars['String']['input'];
-  locale?: InputMaybe<Scalars['String']['input']>;
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-
-export type QueryProjectPostCollectionArgs = {
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  locale?: InputMaybe<Scalars['String']['input']>;
-  order?: InputMaybe<Array<InputMaybe<ProjectPostOrder>>>;
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  where?: InputMaybe<ProjectPostFilter>;
-};
-
-export type Sys = {
-  __typename?: 'Sys';
-  environmentId: Scalars['String']['output'];
-  firstPublishedAt?: Maybe<Scalars['DateTime']['output']>;
-  id: Scalars['String']['output'];
-  locale?: Maybe<Scalars['String']['output']>;
-  publishedAt?: Maybe<Scalars['DateTime']['output']>;
-  publishedVersion?: Maybe<Scalars['Int']['output']>;
-  spaceId: Scalars['String']['output'];
-};
 
 export type SysFilter = {
   firstPublishedAt?: InputMaybe<Scalars['DateTime']['input']>;
@@ -940,10 +443,6 @@ export type SysFilter = {
   publishedVersion_lte?: InputMaybe<Scalars['Float']['input']>;
   publishedVersion_not?: InputMaybe<Scalars['Float']['input']>;
   publishedVersion_not_in?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>>>;
-};
-
-export type _Node = {
-  _id: Scalars['ID']['output'];
 };
 
 export type CfProjectNestedFilter = {

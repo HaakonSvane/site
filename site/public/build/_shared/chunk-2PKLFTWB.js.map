@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["../../../app/lib/utility/errorResponse.ts"],
-  "sourcesContent": ["// REMIX HMR BEGIN\nimport * as __hmr__ from \"remix:hmr\";\nif (import.meta) {\nimport.meta.hot = __hmr__.createHotContext(\n//@ts-expect-error\n\"app/lib/utility/errorResponse.ts\"\n);\nimport.meta.hot.lastModified = \"1709487786663.544\";\n}\n// REMIX HMR END\n\nimport { ErrorResponse, isRouteErrorResponse } from \"@remix-run/react\";\n\nexport type JsonErrorResponsePayload = {\n    message: string;\n    details?: string;\n    error?: Error;\n};\n\ntype JsonErrorResponse = Omit<ErrorResponse, \"data\"> & {\n    data: JsonErrorResponsePayload;\n};\n\nexport const isJsonErrorResponse = (value: unknown): value is JsonErrorResponse => {\n    return (\n        isRouteErrorResponse(value) &&\n        \"message\" in value.data &&\n        typeof value.data.message === \"string\"\n    );\n};\n"],
-  "mappings": ";;;;;;;;AAEA,IAAI,aAAa;AACjB,cAAY,MAAc;AAAA;AAAA,IAE1B;AAAA,EACA;AACA,cAAY,IAAI,eAAe;AAC/B;AAeO,IAAM,sBAAsB,CAAC,UAA+C;AAC/E,SACI,qBAAqB,KAAK,KAC1B,aAAa,MAAM,QACnB,OAAO,MAAM,KAAK,YAAY;AAEtC;",
-  "names": []
-}

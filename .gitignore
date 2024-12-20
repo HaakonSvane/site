@@ -56,12 +56,6 @@ Temporary Items
 # End of https://www.toptal.com/developers/gitignore/api/macos,visualstudiocode
 
 node_modules/
-
-dist/
-build/
-public/build/
-
-/.cache
 .env
 .turbo
 .pnpm-store

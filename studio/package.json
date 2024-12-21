@@ -7,7 +7,8 @@
   "scripts": {
     "dev": "sanity dev",
     "start": "sanity start",
-    "build": "sanity build",
+    "build": "sanity schema extract && sanity typegen generate",
+    "build-studio": "sanity build",
     "deploy": "sanity deploy",
     "deploy-graphql": "sanity graphql deploy",
     "typecheck": "tsc --noEmit"
@@ -20,7 +21,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "sanity": "^3.68.0",
-    "styled-components": "^6.1.8"
+    "styled-components": "^6.1.8",
+    "groq": "^3.68.1"
   },
   "devDependencies": {
     "@sanity/eslint-config-studio": "^5.0.1",

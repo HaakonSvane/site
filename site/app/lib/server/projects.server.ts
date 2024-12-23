@@ -1,43 +1,14 @@
-import { gql } from "~/graphql";
-import { Project, ProjectPost } from "~/graphql/graphql";
-import { qlQuery } from "./graphql.server";
+import { client } from "~/sanity/client";
 import { bundleMDX } from "./mdx.server";
-
-const GET_PROJECT_QUERY = gql(`
-    query GetProjectQuery($slug: String!) {
-        projectCollection(where: { slug: $slug }, limit: 1) {
-            items {
-                title
-                description
-                siteUrl
-                githubUrl
-                leadImage {
-                    url
-                    title
-                }
-            }
-        }
-    }
-`);
-
-const GET_PROJECT_POST_QUERY = gql(`
-    query GetProjectPostQuery($projectSlug: String!, $postSlug: String!) {
-        projectCollection(where: { slug: $projectSlug }) {
-            items {
-                postsCollection(where: {slug: $postSlug}, limit: 1) {
-                    items {
-                        title
-                        content
-                    }
-                }
-            }
-        }
-    }
-
-`);
+import {
+    GET_PROJECT_POST_QUERY,
+    GET_PROJECT_POSTS_QUERY,
+    GET_PROJECT_QUERY,
+    GET_PROJECTS_QUERY,
+} from "~/sanity/queries";
 
 export async function getProject(projectSlug: string) {
-    const queryResponse = await qlQuery(GET_PROJECT_QUERY, { slug: projectSlug });
+    const queryResponse = await client.fetch(GET_PROJECT_QUERY, { projectSlug });
     const rawProject = queryResponse.data?.projectCollection?.items.at(0) as Project | undefined;
     if (!rawProject) {
         return null;
@@ -73,7 +44,10 @@ export async function getProject(projectSlug: string) {
 }
 
 export async function getProjectPost(projectSlug: string, postSlug: string) {
-    const queryResponse = await qlQuery(GET_PROJECT_POST_QUERY, { projectSlug, postSlug });
+    const queryResponse = await client.fetch(GET_PROJECT_POST_QUERY, {
+        projectSlug,
+        projectPostSlug: postSlug,
+    });
     const rawPost = queryResponse.data?.projectCollection?.items
         .at(0)
         ?.postsCollection?.items.at(0) as ProjectPost | undefined;
@@ -114,4 +88,15 @@ export async function getProjectPost(projectSlug: string, postSlug: string) {
         ...rawPost,
         content: post.code,
     } satisfies ProjectPost;
+}
+
+export async function getProjects() {
+    const queryResponse = await client.fetch(GET_PROJECTS_QUERY);
+    console.log("GOT QUERY RESPONSE", queryResponse, "FROM", GET_PROJECTS_QUERY);
+    return queryResponse;
+}
+
+export async function getProjectPosts(projectSlug: string) {
+    const queryResponse = await client.fetch(GET_PROJECT_POSTS_QUERY, { projectSlug });
+    return queryResponse;
 }

@@ -6,6 +6,7 @@
     "scripts": {
         "build": "turbo run build",
         "typecheck": "turbo run typecheck",
+        "generate-schema": "turbo run generate-schema",
         "dev:site": "turbo run dev --filter=@haakonsvane/site-frontend",
         "dev:studio": "turbo run dev --filter=@haakonsvane/site-studio"
     },

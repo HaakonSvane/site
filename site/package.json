@@ -6,13 +6,16 @@
     "author": "haakonsvane",
     "scripts": {
         "build": "remix build",
+        "generate-schema": "sanity typegen generate",
         "dev": "remix dev --manual",
         "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
         "start": "remix-serve ./build/index.js",
         "typecheck": "tsc --noEmit"
     },
     "dependencies": {
+        "@sanity/cli": "^3.68.3",
         "@sanity/client": "^6.24.1",
+        "groq": "^3.68.3",
         "@radix-ui/react-dialog": "^1.1.4",
         "@radix-ui/react-dropdown-menu": "^2.1.4",
         "@radix-ui/react-navigation-menu": "^1.2.3",
@@ -39,6 +42,7 @@
         "tailwind-merge": "^2.5.4"
     },
     "devDependencies": {
+        "@haakonsvane/site-studio": "workspace:*",
         "@parcel/watcher": "^2.4.1",
         "@remix-run/dev": "^2.15.1",
         "@types/react": "^18.3.12",

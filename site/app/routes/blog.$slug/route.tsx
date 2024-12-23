@@ -3,7 +3,7 @@ import { useLoaderData, useRouteError } from "@remix-run/react";
 import { getMDXComponent } from "mdx-bundler/client/index.js";
 import { useMemo } from "react";
 import { postComponents } from "~/lib/postComponents";
-import { getPost } from "~/lib/server/blogPost.server";
+import { getBlogPost } from "~/lib/server/blogPost.server";
 import { JsonErrorResponsePayload, isJsonErrorResponse } from "~/lib/utility/errorResponse";
 import { Container } from "~/ui/Container";
 import { Typography } from "~/ui/Typography";
@@ -19,7 +19,7 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
             { status: 400 },
         );
     try {
-        const post = await getPost(slug);
+        const post = await getBlogPost(slug);
         if (!post) {
             throw json<JsonErrorResponsePayload>(
                 {

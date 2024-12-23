@@ -1,26 +1,14 @@
-import { gql } from "~/graphql";
-import { BlogPost } from "~/graphql/graphql";
-import { qlQuery } from "./graphql.server";
 import { bundleMDX } from "./mdx.server";
-
-const GET_POST_QUERY = gql(`
-    query GetPostQuery($slug: String!) {
-        blogPostCollection(where: { slug: $slug }, limit: 1) {
-            items {
-                title
-                content
-            }
-        }
-    }
-`);
+import { client } from "~/sanity/client";
+import { GET_BLOG_POST_QUERY, GET_BLOG_POSTS_QUERY } from "~/sanity/queries";
 
 /**
  * Get the React component, and frontmatter JSON for a given slug
  * @param slug
  * @returns
  */
-export async function getPost(slug: string) {
-    const queryResponse = await qlQuery(GET_POST_QUERY, { slug: slug });
+export async function getBlogPost(slug: string) {
+    const queryResponse = await client.fetch(GET_BLOG_POST_QUERY, { blogPostSlug: slug });
     const rawPost = queryResponse.data?.blogPostCollection?.items.at(0) as BlogPost | undefined;
     const [rehypeHighlight, rehypeMathjax, remarkGfm, remarkMath] = await Promise.all([
         import("rehype-highlight").then(mod => mod.default),
@@ -59,4 +47,9 @@ export async function getPost(slug: string) {
         ...rawPost,
         content: post.code,
     } satisfies BlogPost;
+}
+
+export async function getBlogPosts() {
+    const queryResponse = await client.fetch(GET_BLOG_POSTS_QUERY);
+    return queryResponse;
 }

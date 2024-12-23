@@ -3,32 +3,13 @@ import { useLoaderData } from "@remix-run/react";
 import { Github, Globe } from "lucide-react";
 import { getMDXComponent } from "mdx-bundler/client/index.js";
 import { useMemo } from "react";
-import { gql } from "~/graphql";
-import { ProjectPost } from "~/graphql/graphql";
 import { postComponents } from "~/lib/postComponents";
-import { qlQuery } from "~/lib/server/graphql.server";
-import { getProject } from "~/lib/server/projects.server";
+import { getProject, getProjectPosts } from "~/lib/server/projects.server";
 import { JsonErrorResponsePayload } from "~/lib/utility/errorResponse";
 import { Badge } from "~/ui/Badge";
 import { Container } from "~/ui/Container";
 import { SiteItemCard } from "~/ui/SiteItem";
 import { Typography } from "~/ui/Typography";
-
-const GET_PROJECT_POSTS_QUERY = gql(`
-    query GetProjectPostsQuery($projectSlug: String!) {
-        projectPostCollection(where: { project: { slug: $projectSlug } }) {
-            items {
-                title
-                slug
-                synopsis
-                leadImage {
-                    title
-                    url
-                }
-            }
-        }
-    }
-`);
 
 export const meta: MetaFunction<typeof loader> = ({ data }) => {
     return [
@@ -52,7 +33,7 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
         );
     try {
         const projectPromise = getProject(projectSlug);
-        const projectPostsPromise = qlQuery(GET_PROJECT_POSTS_QUERY, { projectSlug: projectSlug });
+        const projectPostsPromise = getProjectPosts(projectSlug);
         const [project, projectPosts] = await Promise.allSettled([
             projectPromise,
             projectPostsPromise,
@@ -75,7 +56,7 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
         }
         return json({
             project: project.value,
-            projectPosts: projectPosts.value.data?.projectPostCollection?.items,
+            projectPosts: projectPosts.value,
         });
     } catch (error) {
         throw json<JsonErrorResponsePayload>(
@@ -119,7 +100,7 @@ export default function Project() {
             <div className="flex flex-col gap-y-4">
                 <Typography.Serif className="text-2xl font-bold">Project posts</Typography.Serif>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {((projectPosts ?? []) as ProjectPost[]).map(post => (
+                    {projectPosts.map(post => (
                         <SiteItemCard
                             key={post.slug}
                             title={post.title ?? "[Missing title]"}

@@ -1,9 +1,7 @@
 import { MetaFunction, defer } from "@remix-run/node";
 import { Await, useLoaderData } from "@remix-run/react";
 import { Suspense } from "react";
-import { gql } from "~/graphql";
-import { Project } from "~/graphql/graphql";
-import { qlQuery } from "~/lib/server/graphql.server";
+import { getProjects } from "~/lib/server/projects.server";
 import { Container } from "~/ui/Container";
 import { SiteItemCard, SiteItemCardSkeleton } from "~/ui/SiteItem";
 import { Typography } from "~/ui/Typography";
@@ -15,38 +13,12 @@ export const meta: MetaFunction = () => {
     ];
 };
 
-const GET_PROJECTS_QUERY = gql(`
-    query GetProjectsQuery {
-        projectCollection {
-            items {
-                title
-                slug
-                title
-                synopsis
-                leadImage {
-                    url
-                    title
-                }
-            }
-        }
-    }
-`);
-
 export const loader = async () => {
-    const getPosts = async () => {
-        const queryResponse = await qlQuery(GET_PROJECTS_QUERY, {});
-        const posts = (queryResponse.data?.projectCollection?.items ?? []).filter(
-            Boolean,
-        ) as Project[];
-        return posts;
-    };
-
-    return defer({ posts: getPosts() });
+    return defer({ projects: getProjects() });
 };
 
 const Projects = () => {
-    const { posts } = useLoaderData<typeof loader>();
-
+    const { projects } = useLoaderData<typeof loader>();
     return (
         <Container className="flex flex-1 flex-col gap-y-8">
             <Typography.Serif className="text-4xl font-bold">Projects</Typography.Serif>
@@ -58,9 +30,9 @@ const Projects = () => {
                             <SiteItemCardSkeleton key={index} />
                         ))}
                 >
-                    <Await resolve={posts}>
-                        {posts =>
-                            posts.map(project => (
+                    <Await resolve={projects}>
+                        {projects =>
+                            projects.map(project => (
                                 <SiteItemCard
                                     key={project.slug}
                                     title={project.title ?? "[Missing title]"}

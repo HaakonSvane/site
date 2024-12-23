@@ -1,9 +1,7 @@
 import { MetaFunction, defer } from "@remix-run/node";
 import { Await, useLoaderData } from "@remix-run/react";
 import { Suspense } from "react";
-import { gql } from "~/graphql";
-import { BlogPost } from "~/graphql/graphql";
-import { qlQuery } from "~/lib/server/graphql.server";
+import { getBlogPosts } from "~/lib/server/blogPost.server";
 import { Container } from "~/ui/Container";
 import { SiteItemCard, SiteItemCardSkeleton } from "~/ui/SiteItem";
 import { Typography } from "~/ui/Typography";
@@ -15,31 +13,8 @@ export const meta: MetaFunction = () => {
     ];
 };
 
-const GET_POSTS_QUERY = gql(`
-    query GetPostsQuery {
-        blogPostCollection {
-            items {
-                title
-                slug
-                synopsis
-                leadImage {
-                    title
-                    url
-                }
-            }
-        }
-    }
-`);
-
 export const loader = async () => {
-    const getPosts = async () => {
-        const queryResult = await qlQuery(GET_POSTS_QUERY, {});
-        const posts = (queryResult.data?.blogPostCollection?.items ?? []).filter(
-            Boolean,
-        ) as BlogPost[];
-        return posts;
-    };
-    return defer({ posts: getPosts() });
+    return defer({ posts: getBlogPosts() });
 };
 
 const Blog = () => {

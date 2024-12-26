@@ -98,8 +98,14 @@ export type ProjectPost = {
     _updatedAt: string;
     _rev: string;
     title: string;
-    slug: Slug;
     synopsis: string;
+    slug: Slug;
+    project: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "project";
+    };
     image?: {
         asset?: {
             _ref: string;
@@ -112,12 +118,6 @@ export type ProjectPost = {
         _type: "image";
     };
     body?: string;
-    project: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "project";
-    };
 };
 
 export type Project = {

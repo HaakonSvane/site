@@ -6,5 +6,5 @@ export const client = createClient({
     dataset: "production",
     apiVersion: getEnvValue("SANITY_API_VERSION"),
     useCdn: true,
-    perspective: "published",
+    perspective: "raw",
 });

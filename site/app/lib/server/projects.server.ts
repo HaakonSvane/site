@@ -9,17 +9,13 @@ import {
 
 export async function getProject(projectSlug: string) {
     const queryResponse = await client.fetch(GET_PROJECT_QUERY, { projectSlug });
-    const rawProject = queryResponse.data?.projectCollection?.items.at(0) as Project | undefined;
-    if (!rawProject) {
-        return null;
-    }
     const [rehypeHighlight, remarkGfm] = await Promise.all([
         import("rehype-highlight").then(mod => mod.default),
         import("remark-gfm").then(mod => mod.default),
     ]);
 
     const { code } = await bundleMDX({
-        source: rawProject.description ?? "",
+        source: queryResponse?.description ?? "",
         cwd: process.cwd(),
         esbuildOptions: options => {
             options.loader = {
@@ -38,9 +34,9 @@ export async function getProject(projectSlug: string) {
     });
 
     return {
-        ...rawProject,
+        ...queryResponse,
         description: code,
-    } satisfies Project;
+    };
 }
 
 export async function getProjectPost(projectSlug: string, postSlug: string) {
@@ -48,21 +44,16 @@ export async function getProjectPost(projectSlug: string, postSlug: string) {
         projectSlug,
         projectPostSlug: postSlug,
     });
-    const rawPost = queryResponse.data?.projectCollection?.items
-        .at(0)
-        ?.postsCollection?.items.at(0) as ProjectPost | undefined;
+
     const [rehypeHighlight, rehypeMathjax, remarkGfm, remarkMath] = await Promise.all([
         import("rehype-highlight").then(mod => mod.default),
         import("rehype-mathjax").then(mod => mod.default),
         import("remark-gfm").then(mod => mod.default),
         import("remark-math").then(mod => mod.default),
     ]);
-    if (!rawPost) {
-        return null;
-    }
 
     const post = await bundleMDX({
-        source: rawPost.content ?? "",
+        source: queryResponse?.body ?? "",
         cwd: process.cwd(),
         esbuildOptions: options => {
             options.loader = {
@@ -85,14 +76,13 @@ export async function getProjectPost(projectSlug: string, postSlug: string) {
     });
 
     return {
-        ...rawPost,
+        ...queryResponse,
         content: post.code,
-    } satisfies ProjectPost;
+    };
 }
 
 export async function getProjects() {
     const queryResponse = await client.fetch(GET_PROJECTS_QUERY);
-    console.log("GOT QUERY RESPONSE", queryResponse, "FROM", GET_PROJECTS_QUERY);
     return queryResponse;
 }
 

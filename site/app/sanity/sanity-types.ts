@@ -74,9 +74,9 @@ export type BlogPost = {
     _createdAt: string;
     _updatedAt: string;
     _rev: string;
-    title?: string;
-    slug?: Slug;
-    synopsis?: string;
+    title: string;
+    synopsis: string;
+    slug: Slug;
     image?: {
         asset?: {
             _ref: string;
@@ -88,24 +88,7 @@ export type BlogPost = {
         crop?: SanityImageCrop;
         _type: "image";
     };
-    body?: Array<{
-        children?: Array<{
-            marks?: Array<string>;
-            text?: string;
-            _type: "span";
-            _key: string;
-        }>;
-        style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
-        listItem?: "bullet" | "number";
-        markDefs?: Array<{
-            href?: string;
-            _type: "link";
-            _key: string;
-        }>;
-        level?: number;
-        _type: "block";
-        _key: string;
-    }>;
+    body?: string;
 };
 
 export type ProjectPost = {
@@ -114,9 +97,9 @@ export type ProjectPost = {
     _createdAt: string;
     _updatedAt: string;
     _rev: string;
-    title?: string;
-    slug?: Slug;
-    synopsis?: string;
+    title: string;
+    slug: Slug;
+    synopsis: string;
     image?: {
         asset?: {
             _ref: string;
@@ -128,25 +111,8 @@ export type ProjectPost = {
         crop?: SanityImageCrop;
         _type: "image";
     };
-    body?: Array<{
-        children?: Array<{
-            marks?: Array<string>;
-            text?: string;
-            _type: "span";
-            _key: string;
-        }>;
-        style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
-        listItem?: "bullet" | "number";
-        markDefs?: Array<{
-            href?: string;
-            _type: "link";
-            _key: string;
-        }>;
-        level?: number;
-        _type: "block";
-        _key: string;
-    }>;
-    project?: {
+    body?: string;
+    project: {
         _ref: string;
         _type: "reference";
         _weak?: boolean;
@@ -160,10 +126,10 @@ export type Project = {
     _createdAt: string;
     _updatedAt: string;
     _rev: string;
-    title?: string;
-    slug?: Slug;
-    synopsis?: string;
-    description?: string;
+    title: string;
+    slug: Slug;
+    synopsis: string;
+    intro?: string;
     image?: {
         asset?: {
             _ref: string;
@@ -238,9 +204,11 @@ export type SanityImageMetadata = {
 
 export type Slug = {
     _type: "slug";
-    current?: string;
+    current: string;
     source?: string;
 };
+
+export type Markdown = string;
 
 export type AllSanitySchemaTypes =
     | SanityImagePaletteSwatch
@@ -256,147 +224,132 @@ export type AllSanitySchemaTypes =
     | SanityImageAsset
     | SanityAssetSourceData
     | SanityImageMetadata
-    | Slug;
+    | Slug
+    | Markdown;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./app/sanity/queries/blog.ts
 // Variable: GET_BLOG_POSTS_QUERY
-// Query: *[_type == 'blogPost'] | order(_createdAt desc) {title, synopsis, 'slug': slug.current, 'image': image.asset->}
+// Query: *[_type == 'blogPost'] | order(_createdAt desc) {title, synopsis, 'slug': slug.current, image}
 export type GET_BLOG_POSTS_QUERYResult = Array<{
-    title: string | null;
-    synopsis: string | null;
-    slug: string | null;
+    title: string;
+    synopsis: string;
+    slug: string;
     image: {
-        _id: string;
-        _type: "sanity.imageAsset";
-        _createdAt: string;
-        _updatedAt: string;
-        _rev: string;
-        originalFilename?: string;
-        label?: string;
-        title?: string;
-        description?: string;
-        altText?: string;
-        sha1hash?: string;
-        extension?: string;
-        mimeType?: string;
-        size?: number;
-        assetId?: string;
-        uploadId?: string;
-        path?: string;
-        url?: string;
-        metadata?: SanityImageMetadata;
-        source?: SanityAssetSourceData;
+        asset?: {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
     } | null;
 }>;
 // Variable: GET_BLOG_POST_QUERY
-// Query: *[_type == 'blogPost' && slug.current == $blogPostSlug][0] | {title, synopsis, body, 'image': image.asset->}
+// Query: *[_type == 'blogPost' && slug.current == $blogPostSlug][0] | {title, synopsis, body, image}
 export type GET_BLOG_POST_QUERYResult = {
-    title: string | null;
-    synopsis: string | null;
-    body: Array<{
-        children?: Array<{
-            marks?: Array<string>;
-            text?: string;
-            _type: "span";
-            _key: string;
-        }>;
-        style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
-        listItem?: "bullet" | "number";
-        markDefs?: Array<{
-            href?: string;
-            _type: "link";
-            _key: string;
-        }>;
-        level?: number;
-        _type: "block";
-        _key: string;
-    }> | null;
+    title: string;
+    synopsis: string;
+    body: string | null;
     image: {
-        _id: string;
-        _type: "sanity.imageAsset";
-        _createdAt: string;
-        _updatedAt: string;
-        _rev: string;
-        originalFilename?: string;
-        label?: string;
-        title?: string;
-        description?: string;
-        altText?: string;
-        sha1hash?: string;
-        extension?: string;
-        mimeType?: string;
-        size?: number;
-        assetId?: string;
-        uploadId?: string;
-        path?: string;
-        url?: string;
-        metadata?: SanityImageMetadata;
-        source?: SanityAssetSourceData;
+        asset?: {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
     } | null;
 } | null;
 
 // Source: ./app/sanity/queries/project.ts
 // Variable: GET_PROJECTS_QUERY
-// Query: *[_type == 'project'] | order(_createdAt desc) {'slug': slug.current, title, synopsis, 'image': image.asset->url}
+// Query: *[_type == 'project'] | order(_createdAt desc) {'slug': slug.current, title, synopsis, image}
 export type GET_PROJECTS_QUERYResult = Array<{
-    slug: string | null;
-    title: string | null;
-    synopsis: string | null;
-    image: string | null;
+    slug: string;
+    title: string;
+    synopsis: string;
+    image: {
+        asset?: {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+    } | null;
 }>;
 // Variable: GET_PROJECT_QUERY
-// Query: *[_type == 'project' && slug.current == $projectSlug][0] | {title, synopsis, description, 'image': image.asset->url, siteUrl, githubUrl }
+// Query: *[_type == 'project' && slug.current == $projectSlug][0] | {title, synopsis, description, image, siteUrl, githubUrl }
 export type GET_PROJECT_QUERYResult = {
-    title: string | null;
-    synopsis: string | null;
-    description: string | null;
-    image: string | null;
+    title: string;
+    synopsis: string;
+    description: null;
+    image: {
+        asset?: {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+    } | null;
     siteUrl: string | null;
     githubUrl: string | null;
 } | null;
 // Variable: GET_PROJECT_POSTS_QUERY
-// Query: *[_type == 'projectPost' && $projectSlug == project->slug.current] | order(_createdAt desc) {title, synopsis, 'slug': slug.current, 'image': image.asset->url}
+// Query: *[_type == 'projectPost' && $projectSlug == project->slug.current] | order(_createdAt desc) {title, synopsis, 'slug': slug.current, image}
 export type GET_PROJECT_POSTS_QUERYResult = Array<{
-    title: string | null;
-    synopsis: string | null;
-    slug: string | null;
-    image: string | null;
+    title: string;
+    synopsis: string;
+    slug: string;
+    image: {
+        asset?: {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+    } | null;
 }>;
 // Variable: GET_PROJECT_POST_QUERY
-// Query: *[_type == 'projectPost' && $projectSlug == project->slug.current && $projectPostSlug == slug.current][0] | {title, synopsis, body, 'image': image.asset->url}
+// Query: *[_type == 'projectPost' && $projectSlug == project->slug.current && $projectPostSlug == slug.current][0] | {title, synopsis, body, image}
 export type GET_PROJECT_POST_QUERYResult = {
-    title: string | null;
-    synopsis: string | null;
-    body: Array<{
-        children?: Array<{
-            marks?: Array<string>;
-            text?: string;
-            _type: "span";
-            _key: string;
-        }>;
-        style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
-        listItem?: "bullet" | "number";
-        markDefs?: Array<{
-            href?: string;
-            _type: "link";
-            _key: string;
-        }>;
-        level?: number;
-        _type: "block";
-        _key: string;
-    }> | null;
-    image: string | null;
+    title: string;
+    synopsis: string;
+    body: string | null;
+    image: {
+        asset?: {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+    } | null;
 } | null;
 
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
     interface SanityQueries {
-        "*[_type == 'blogPost'] | order(_createdAt desc) {title, synopsis, 'slug': slug.current, 'image': image.asset->}": GET_BLOG_POSTS_QUERYResult;
-        "*[_type == 'blogPost' && slug.current == $blogPostSlug][0] | {title, synopsis, body, 'image': image.asset->}": GET_BLOG_POST_QUERYResult;
-        "*[_type == 'project'] | order(_createdAt desc) {'slug': slug.current, title, synopsis, 'image': image.asset->url}": GET_PROJECTS_QUERYResult;
-        "*[_type == 'project' && slug.current == $projectSlug][0] | {title, synopsis, description, 'image': image.asset->url, siteUrl, githubUrl }": GET_PROJECT_QUERYResult;
-        "*[_type == 'projectPost' && $projectSlug == project->slug.current] | order(_createdAt desc) {title, synopsis, 'slug': slug.current, 'image': image.asset->url}": GET_PROJECT_POSTS_QUERYResult;
-        "*[_type == 'projectPost' && $projectSlug == project->slug.current && $projectPostSlug == slug.current][0] | {title, synopsis, body, 'image': image.asset->url}": GET_PROJECT_POST_QUERYResult;
+        "*[_type == 'blogPost'] | order(_createdAt desc) {title, synopsis, 'slug': slug.current, image}": GET_BLOG_POSTS_QUERYResult;
+        "*[_type == 'blogPost' && slug.current == $blogPostSlug][0] | {title, synopsis, body, image}": GET_BLOG_POST_QUERYResult;
+        "*[_type == 'project'] | order(_createdAt desc) {'slug': slug.current, title, synopsis, image}": GET_PROJECTS_QUERYResult;
+        "*[_type == 'project' && slug.current == $projectSlug][0] | {title, synopsis, description, image, siteUrl, githubUrl }": GET_PROJECT_QUERYResult;
+        "*[_type == 'projectPost' && $projectSlug == project->slug.current] | order(_createdAt desc) {title, synopsis, 'slug': slug.current, image}": GET_PROJECT_POSTS_QUERYResult;
+        "*[_type == 'projectPost' && $projectSlug == project->slug.current && $projectPostSlug == slug.current][0] | {title, synopsis, body, image}": GET_PROJECT_POST_QUERYResult;
     }
 }

@@ -8,7 +8,7 @@
     "scripts": {
         "dev": "sanity dev",
         "start": "sanity start",
-        "generate-schema": "sanity schema extract",
+        "generate-schema": "sanity schema extract --enforce-required-fields",
         "build": "sanity build",
         "deploy": "sanity deploy",
         "deploy-graphql": "sanity graphql deploy",
@@ -19,9 +19,11 @@
     ],
     "dependencies": {
         "@sanity/vision": "^3.68.3",
+        "easymde": "2",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "sanity": "^3.68.3",
+        "sanity-plugin-markdown": "^5.0.0",
         "styled-components": "^6.1.8"
     },
     "devDependencies": {

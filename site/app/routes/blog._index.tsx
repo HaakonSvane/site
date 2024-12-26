@@ -2,6 +2,7 @@ import { MetaFunction, defer } from "@remix-run/node";
 import { Await, useLoaderData } from "@remix-run/react";
 import { Suspense } from "react";
 import { getBlogPosts } from "~/lib/server/blogPost.server";
+import { sanityImage } from "~/sanity/image";
 import { Container } from "~/ui/Container";
 import { SiteItemCard, SiteItemCardSkeleton } from "~/ui/SiteItem";
 import { Typography } from "~/ui/Typography";
@@ -43,10 +44,10 @@ const Blog = () => {
                                     description={post.synopsis ?? "[Missing synopsis]"}
                                     slug={post.slug!}
                                     leadImage={
-                                        post.leadImage
+                                        post.image
                                             ? {
-                                                  url: post.leadImage.url!,
-                                                  title: post.leadImage.title ?? undefined,
+                                                  title: "Blog post image",
+                                                  url: sanityImage(post.image).url(),
                                               }
                                             : undefined
                                     }

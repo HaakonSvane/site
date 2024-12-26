@@ -1,6 +1,6 @@
-import { bundleMDX } from "./mdx.server";
 import { client } from "~/sanity/client";
 import { GET_BLOG_POST_QUERY, GET_BLOG_POSTS_QUERY } from "~/sanity/queries";
+import { bundleMDX } from "./mdx.server";
 
 /**
  * Get the React component, and frontmatter JSON for a given slug
@@ -9,19 +9,15 @@ import { GET_BLOG_POST_QUERY, GET_BLOG_POSTS_QUERY } from "~/sanity/queries";
  */
 export async function getBlogPost(slug: string) {
     const queryResponse = await client.fetch(GET_BLOG_POST_QUERY, { blogPostSlug: slug });
-    const rawPost = queryResponse.data?.blogPostCollection?.items.at(0) as BlogPost | undefined;
     const [rehypeHighlight, rehypeMathjax, remarkGfm, remarkMath] = await Promise.all([
         import("rehype-highlight").then(mod => mod.default),
         import("rehype-mathjax").then(mod => mod.default),
         import("remark-gfm").then(mod => mod.default),
         import("remark-math").then(mod => mod.default),
     ]);
-    if (!rawPost) {
-        return null;
-    }
 
     const post = await bundleMDX({
-        source: rawPost.content ?? "",
+        source: queryResponse?.body ?? "",
         cwd: process.cwd(),
         esbuildOptions: options => {
             options.loader = {
@@ -44,9 +40,9 @@ export async function getBlogPost(slug: string) {
     });
 
     return {
-        ...rawPost,
+        ...queryResponse,
         content: post.code,
-    } satisfies BlogPost;
+    };
 }
 
 export async function getBlogPosts() {

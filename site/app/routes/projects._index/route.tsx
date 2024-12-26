@@ -2,6 +2,7 @@ import { MetaFunction, defer } from "@remix-run/node";
 import { Await, useLoaderData } from "@remix-run/react";
 import { Suspense } from "react";
 import { getProjects } from "~/lib/server/projects.server";
+import { sanityImage } from "~/sanity/image";
 import { Container } from "~/ui/Container";
 import { SiteItemCard, SiteItemCardSkeleton } from "~/ui/SiteItem";
 import { Typography } from "~/ui/Typography";
@@ -39,10 +40,10 @@ const Projects = () => {
                                     description={project.synopsis ?? "[Missing synopsis]"}
                                     slug={project.slug!}
                                     leadImage={
-                                        project.leadImage
+                                        project.image
                                             ? {
-                                                  url: project.leadImage.url!,
-                                                  title: project.leadImage.title ?? undefined,
+                                                  url: sanityImage(project.image).url(),
+                                                  title: "Project image",
                                               }
                                             : undefined
                                     }

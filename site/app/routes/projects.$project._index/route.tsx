@@ -6,6 +6,7 @@ import { useMemo } from "react";
 import { postComponents } from "~/lib/postComponents";
 import { getProject, getProjectPosts } from "~/lib/server/projects.server";
 import { JsonErrorResponsePayload } from "~/lib/utility/errorResponse";
+import { sanityImage } from "~/sanity/image";
 import { Badge } from "~/ui/Badge";
 import { Container } from "~/ui/Container";
 import { SiteItemCard } from "~/ui/SiteItem";
@@ -107,10 +108,10 @@ export default function Project() {
                             description={post.synopsis ?? "[Missing synopsis]"}
                             slug={post.slug!}
                             leadImage={
-                                post.leadImage
+                                post.image
                                     ? {
-                                          title: post.leadImage.title ?? undefined,
-                                          url: post.leadImage.url!,
+                                          url: sanityImage(post.image).url(),
+                                          title: "Project post image",
                                       }
                                     : undefined
                             }

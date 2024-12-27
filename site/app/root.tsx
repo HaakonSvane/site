@@ -1,15 +1,7 @@
 import type { LinksFunction, LoaderFunction } from "@remix-run/node";
-import {
-    Links,
-    LiveReload,
-    Meta,
-    Outlet,
-    Scripts,
-    ScrollRestoration,
-    useLoaderData,
-} from "@remix-run/react";
+import { Links, Meta, Outlet, Scripts, ScrollRestoration, useLoaderData } from "@remix-run/react";
 import { Analytics } from "@vercel/analytics/react";
-import tailwindStyles from "~/tailwind.css";
+import tailwindStyles from "~/tailwind.css?url";
 
 import { PreventFlashOnWrongTheme, ThemeProvider, useTheme } from "remix-themes";
 import { themeSessionResolver } from "./sessions.server";
@@ -49,7 +41,6 @@ function App() {
                 </div>
                 <ScrollRestoration />
                 <Scripts />
-                <LiveReload />
             </body>
         </html>
     );

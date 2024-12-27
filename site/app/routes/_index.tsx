@@ -1,8 +1,8 @@
 import type { MetaFunction } from "@remix-run/node";
 import { Container } from "~/ui/Container";
 import { Typography } from "~/ui/Typography";
-import logoLight from "~/../public/logo-light.svg";
-import logoDark from "~/../public/logo-dark.svg";
+import logoLight from "/logo-light.svg?url";
+import logoDark from "/logo-dark.svg?url";
 import { useTheme } from "remix-themes";
 
 export const meta: MetaFunction = () => {

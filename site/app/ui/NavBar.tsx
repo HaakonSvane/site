@@ -1,5 +1,5 @@
-import logoDark from "../../public/logo-dark.svg";
-import logoLight from "../../public/logo-light.svg";
+import logoDark from "/logo-dark.svg?url";
+import logoLight from "/logo-light.svg?url";
 
 import { Link } from "@remix-run/react";
 import { Menu } from "lucide-react";

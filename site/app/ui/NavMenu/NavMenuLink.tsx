@@ -1,5 +1,5 @@
 import { NavigationMenuLink, NavigationMenuLinkProps } from "@radix-ui/react-navigation-menu";
-import { NavLink } from "@remix-run/react";
+import { NavLink } from "react-router";
 import { cva } from "class-variance-authority";
 import { HtmlHTMLAttributes, forwardRef } from "react";
 import { tw } from "~/lib/utility";

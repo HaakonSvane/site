@@ -1,5 +1,5 @@
-import { LoaderFunctionArgs, MetaFunction, json } from "@remix-run/node";
-import { useLoaderData, useRouteError } from "@remix-run/react";
+import { LoaderFunctionArgs, MetaFunction, data, json } from "react-router";
+import { useLoaderData, useRouteError } from "react-router";
 import { getMDXComponent } from "mdx-bundler/client/index.js";
 import { useMemo } from "react";
 import { postComponents } from "~/lib/postComponents";
@@ -11,7 +11,7 @@ import { Typography } from "~/ui/Typography";
 export const loader = async ({ params }: LoaderFunctionArgs) => {
     const slug = params.slug;
     if (!slug)
-        throw json<JsonErrorResponsePayload>(
+        throw data<JsonErrorResponsePayload>(
             {
                 message: "Bad request",
                 details: "The server could not parse the provided URL parameters as a slug",
@@ -21,7 +21,7 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
     try {
         const post = await getBlogPost(slug);
         if (!post) {
-            throw json<JsonErrorResponsePayload>(
+            throw data<JsonErrorResponsePayload>(
                 {
                     message: "Post not found",
                     details: "The post you are looking for does not exist",
@@ -29,9 +29,9 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
                 { status: 404 },
             );
         }
-        return json(post);
+        return post;
     } catch (error) {
-        throw json<JsonErrorResponsePayload>(
+        throw data<JsonErrorResponsePayload>(
             {
                 message: "Server error",
                 details: "An error occurred while trying to retrieve the post",

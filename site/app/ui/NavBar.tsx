@@ -1,9 +1,8 @@
 import logoDark from "/logo-dark.svg?url";
 import logoLight from "/logo-light.svg?url";
 
-import { Link } from "@remix-run/react";
+import { Link } from "react-router";
 import { Menu } from "lucide-react";
-import { useTheme } from "remix-themes";
 import { Button } from "./Button";
 import { Container } from "./Container";
 import { NavMenu } from "./NavMenu";
@@ -13,14 +12,14 @@ import { ThemeButton } from "./ThemeButton";
 import { Typography } from "./Typography";
 
 export const NavBar = () => {
-    const [theme] = useTheme();
     return (
         <header className="flex h-16 sticky top-0 z-10 backdrop-filter backdrop-blur">
             <NavMenu className="flex flex-1">
                 <Container className="flex flex-1 items-center justify-between">
                     <Link className="flex gap-4 flex-row align-center justify-center" to="/">
                         <img
-                            src={theme === "dark" ? logoDark : logoLight}
+                            // src={theme === "dark" ? logoDark : logoLight}
+                            src={logoDark}
                             alt="logo"
                             className="w-8 h-8"
                         />

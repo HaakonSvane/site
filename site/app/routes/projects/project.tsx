@@ -1,5 +1,5 @@
-import { LoaderFunctionArgs, MetaFunction, json } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { LoaderFunctionArgs, MetaFunction, data, json } from "react-router";
+import { useLoaderData } from "react-router";
 import { Github, Globe } from "lucide-react";
 import { getMDXComponent } from "mdx-bundler/client/index.js";
 import { useMemo } from "react";
@@ -25,7 +25,7 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
 export const loader = async ({ params }: LoaderFunctionArgs) => {
     const projectSlug = params.project;
     if (!projectSlug)
-        throw json<JsonErrorResponsePayload>(
+        throw data<JsonErrorResponsePayload>(
             {
                 message: "Bad request",
                 details: "The server could not parse the provided URL parameters as a slug",
@@ -46,7 +46,7 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
             !projectPosts ||
             projectPosts.status === "rejected"
         ) {
-            throw json<JsonErrorResponsePayload>(
+            throw data<JsonErrorResponsePayload>(
                 {
                     message: "Project not found",
                     details:
@@ -55,12 +55,12 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
                 { status: 404 },
             );
         }
-        return json({
+        return {
             project: project.value,
             projectPosts: projectPosts.value,
-        });
+        };
     } catch (error) {
-        throw json<JsonErrorResponsePayload>(
+        throw data<JsonErrorResponsePayload>(
             {
                 message: "Server error",
                 details: "An error occurred while trying to retrieve the project",

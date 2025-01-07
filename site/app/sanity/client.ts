@@ -1,4 +1,4 @@
-import { createClient } from "@sanity/client";
+import { ClientPerspective, createClient } from "@sanity/client";
 import { getEnvValue } from "~/lib/utility";
 
 export const client = createClient({
@@ -6,5 +6,5 @@ export const client = createClient({
     dataset: "production",
     apiVersion: getEnvValue("SANITY_API_VERSION"),
     useCdn: true,
-    perspective: "raw",
+    perspective: getEnvValue("SANITY_PERSPECTIVE") as ClientPerspective,
 });

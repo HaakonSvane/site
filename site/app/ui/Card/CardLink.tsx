@@ -1,4 +1,4 @@
-import { Link, LinkProps } from "@remix-run/react";
+import { Link, LinkProps } from "react-router";
 import { forwardRef } from "react";
 import { Card } from "./Card";
 

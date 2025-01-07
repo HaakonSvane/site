@@ -1,5 +1,5 @@
-import { MetaFunction, defer } from "@remix-run/node";
-import { Await, useLoaderData } from "@remix-run/react";
+import { MetaFunction } from "react-router";
+import { Await, useLoaderData } from "react-router";
 import { Suspense } from "react";
 import { getBlogPosts } from "~/lib/server/blogPost.server";
 import { sanityImage } from "~/sanity/image";
@@ -15,7 +15,7 @@ export const meta: MetaFunction = () => {
 };
 
 export const loader = async () => {
-    return defer({ posts: getBlogPosts() });
+    return { posts: getBlogPosts() };
 };
 
 const Blog = () => {

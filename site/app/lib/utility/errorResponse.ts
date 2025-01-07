@@ -1,4 +1,4 @@
-import { ErrorResponse, isRouteErrorResponse } from "@remix-run/react";
+import { ErrorResponse, isRouteErrorResponse } from "react-router";
 
 export type JsonErrorResponsePayload = {
     message: string;

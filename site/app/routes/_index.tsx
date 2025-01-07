@@ -1,9 +1,8 @@
-import type { MetaFunction } from "@remix-run/node";
+import type { MetaFunction } from "react-router";
 import { Container } from "~/ui/Container";
 import { Typography } from "~/ui/Typography";
 import logoLight from "/logo-light.svg?url";
 import logoDark from "/logo-dark.svg?url";
-import { useTheme } from "remix-themes";
 
 export const meta: MetaFunction = () => {
     return [
@@ -13,12 +12,12 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Index() {
-    const [theme] = useTheme();
     return (
         <Container className="justify-center gap-4 max-w-lg">
             <div className="flex flex-row gap-8 md:gap-6 items-center">
                 <img
-                    src={theme === "dark" ? logoDark : logoLight}
+                    // src={theme === "dark" ? logoDark : logoLight}
+                    src={logoDark}
                     alt="logo"
                     className="w-24 h-24"
                 />

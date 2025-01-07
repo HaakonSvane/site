@@ -1,8 +1,7 @@
-import { LoaderFunctionArgs, MetaFunction, data, json } from "react-router";
-import { useLoaderData } from "react-router";
 import { Github, Globe } from "lucide-react";
 import { getMDXComponent } from "mdx-bundler/client/index.js";
 import { useMemo } from "react";
+import { LoaderFunctionArgs, MetaFunction, data, useLoaderData } from "react-router";
 import { postComponents } from "~/lib/postComponents";
 import { getProject, getProjectPosts } from "~/lib/server/projects.server";
 import { JsonErrorResponsePayload } from "~/lib/utility/errorResponse";

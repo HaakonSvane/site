@@ -10,19 +10,16 @@ import { Separator } from "./Separator";
 import { SideSheet } from "./SideSheet";
 import { ThemeButton } from "./ThemeButton";
 import { Typography } from "./Typography";
+import { useTheme } from "remix-themes";
 
 export const NavBar = () => {
+    // const [theme] = useTheme();
     return (
         <header className="flex h-16 sticky top-0 z-10 backdrop-filter backdrop-blur">
             <NavMenu className="flex flex-1">
                 <Container className="flex flex-1 items-center justify-between">
                     <Link className="flex gap-4 flex-row align-center justify-center" to="/">
-                        <img
-                            // src={theme === "dark" ? logoDark : logoLight}
-                            src={logoDark}
-                            alt="logo"
-                            className="w-8 h-8"
-                        />
+                        <img src={logoDark} alt="logo" className="w-8 h-8" />
                         <Typography.Serif className="text-xl font-semibold">
                             Haakon Svane
                         </Typography.Serif>

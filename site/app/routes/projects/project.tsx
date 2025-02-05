@@ -5,7 +5,6 @@ import { LoaderFunctionArgs, MetaFunction, data, useLoaderData } from "react-rou
 import { postComponents } from "~/lib/postComponents";
 import { getProject, getProjectPosts } from "~/lib/server/projects.server";
 import { JsonErrorResponsePayload } from "~/lib/utility/errorResponse";
-import { sanityImage } from "~/sanity/image";
 import { Badge } from "~/ui/Badge";
 import { Container } from "~/ui/Container";
 import { SiteItemCard } from "~/ui/SiteItem";
@@ -109,7 +108,7 @@ export default function Project() {
                             leadImage={
                                 post.image
                                     ? {
-                                          url: sanityImage(post.image).url(),
+                                          url: post.image.url,
                                           title: "Project post image",
                                       }
                                     : undefined

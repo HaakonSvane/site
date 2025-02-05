@@ -1,6 +1,7 @@
-import { client } from "~/sanity/client";
+import { client } from "~/sanity/client.server";
 import { GET_BLOG_POST_QUERY, GET_BLOG_POSTS_QUERY } from "~/sanity/queries";
 import { bundleMDX } from "./mdx.server";
+import { sanityImage } from "~/sanity/image.server";
 
 /**
  * Get the React component, and frontmatter JSON for a given slug
@@ -47,5 +48,8 @@ export async function getBlogPost(slug: string) {
 
 export async function getBlogPosts() {
     const queryResponse = await client.fetch(GET_BLOG_POSTS_QUERY);
-    return queryResponse;
+    return queryResponse.map(post => ({
+        ...post,
+        image: post.image ? { url: sanityImage(post.image).width(200).url() } : null,
+    }));
 }

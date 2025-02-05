@@ -1,8 +1,6 @@
-import { MetaFunction } from "react-router";
-import { Await, useLoaderData } from "react-router";
 import { Suspense } from "react";
+import { Await, MetaFunction, useLoaderData } from "react-router";
 import { getProjects } from "~/lib/server/projects.server";
-import { sanityImage } from "~/sanity/image";
 import { Container } from "~/ui/Container";
 import { SiteItemCard, SiteItemCardSkeleton } from "~/ui/SiteItem";
 import { Typography } from "~/ui/Typography";
@@ -42,7 +40,7 @@ const Projects = () => {
                                     leadImage={
                                         project.image
                                             ? {
-                                                  url: sanityImage(project.image).url(),
+                                                  url: project.image.url,
                                                   title: "Project image",
                                               }
                                             : undefined

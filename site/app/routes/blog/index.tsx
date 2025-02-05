@@ -1,8 +1,6 @@
-import { MetaFunction } from "react-router";
-import { Await, useLoaderData } from "react-router";
 import { Suspense } from "react";
+import { Await, MetaFunction, useLoaderData } from "react-router";
 import { getBlogPosts } from "~/lib/server/blogPost.server";
-import { sanityImage } from "~/sanity/image";
 import { Container } from "~/ui/Container";
 import { SiteItemCard, SiteItemCardSkeleton } from "~/ui/SiteItem";
 import { Typography } from "~/ui/Typography";
@@ -47,7 +45,7 @@ const Blog = () => {
                                         post.image
                                             ? {
                                                   title: "Blog post image",
-                                                  url: sanityImage(post.image).url(),
+                                                  url: post.image.url,
                                               }
                                             : undefined
                                     }

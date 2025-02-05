@@ -2,6 +2,7 @@ import { Moon, Sun } from "lucide-react";
 import React from "react";
 import { Button } from "./Button";
 import { ToggleButton } from "./ToggleButton";
+import { Theme, useTheme } from "remix-themes";
 
 type ThemeButtonProps = Omit<React.ComponentProps<typeof Button>, "value" | "onChange">;
 

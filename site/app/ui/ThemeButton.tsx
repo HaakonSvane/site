@@ -7,7 +7,7 @@ import { Theme, useTheme } from "remix-themes";
 type ThemeButtonProps = Omit<React.ComponentProps<typeof Button>, "value" | "onChange">;
 
 export const ThemeButton = ({ ...rest }: ThemeButtonProps) => {
-    // const [theme, setTheme] = useTheme();
+    const [theme, setTheme] = useTheme();
     return (
         <ToggleButton
             value={"light"}
@@ -15,7 +15,7 @@ export const ThemeButton = ({ ...rest }: ThemeButtonProps) => {
                 { icon: Sun, label: "Light", value: "light" },
                 { icon: Moon, label: "Dark", value: "dark" },
             ]}
-            onChange={() => null}
+            onChange={value => setTheme(value as Theme)}
             {...rest}
         />
     );

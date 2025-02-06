@@ -4,18 +4,20 @@ import { Links, Meta, Outlet, Scripts, ScrollRestoration, useLoaderData } from "
 import { PreventFlashOnWrongTheme, ThemeProvider, useTheme } from "remix-themes";
 import tailwindStyles from "~/tailwind.css?url";
 import { themeSessionResolver } from "./sessions.server";
+import { Route } from "./+types/root";
+import { NavBar } from "./ui/NavBar";
 
-export const loader: LoaderFunction = async ({ request }) => {
+export async function loader({ request }: Route.LoaderArgs) {
     const { getTheme } = await themeSessionResolver(request);
     return {
         theme: getTheme(),
     };
-};
+}
 
 export const links: LinksFunction = () => [{ rel: "stylesheet", href: tailwindStyles }];
 
 function App() {
-    const loaderData = useLoaderData();
+    const loaderData = useLoaderData<typeof loader>();
     const [theme] = useTheme();
     return (
         <html lang="en" className={theme ?? "light"}>
@@ -29,6 +31,7 @@ function App() {
             </head>
             <body className="bg-background transition-colors font-sans text-foreground antialiased min-h-[100dvh]">
                 <div className="flex flex-col">
+                    <NavBar />
                     <Outlet />
                     <div className="bg-red-300"></div>
                 </div>
@@ -39,10 +42,9 @@ function App() {
     );
 }
 
-export default function AppWithProviders() {
-    const loaderData = useLoaderData();
+export default function AppWithProviders({ loaderData }: Route.ComponentProps) {
     return (
-        <ThemeProvider specifiedTheme={loaderData.theme} themeAction="/action.setTheme">
+        <ThemeProvider specifiedTheme={loaderData.theme} themeAction="/action/setTheme">
             <App />
         </ThemeProvider>
     );

@@ -5,7 +5,7 @@ export const GET_PROJECTS_QUERY = defineQuery(
 );
 
 export const GET_PROJECT_QUERY = defineQuery(
-    `*[_type == 'project' && slug.current == $projectSlug][0] | {title, synopsis, description, image, siteUrl, githubUrl }`,
+    `*[_type == 'project' && slug.current == $projectSlug][0] | {title, synopsis, intro, image, siteUrl, githubUrl }`,
 );
 
 export const GET_PROJECT_POSTS_QUERY = defineQuery(

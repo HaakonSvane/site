@@ -10,7 +10,7 @@ export const ThemeButton = ({ ...rest }: ThemeButtonProps) => {
     const [theme, setTheme] = useTheme();
     return (
         <ToggleButton
-            value={"light"}
+            value={theme ?? "light"}
             values={[
                 { icon: Sun, label: "Light", value: "light" },
                 { icon: Moon, label: "Dark", value: "dark" },

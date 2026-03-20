@@ -13,13 +13,13 @@ import { Typography } from "./Typography";
 import { useTheme } from "remix-themes";
 
 export const NavBar = () => {
-    // const [theme] = useTheme();
+    const [theme] = useTheme();
     return (
-        <header className="flex h-16 sticky top-0 z-10 backdrop-filter backdrop-blur">
+        <header className="flex h-16 sticky top-0 z-10 backdrop-blur-md bg-background/75 border-b border-border/50 saturate-150">
             <NavMenu className="flex flex-1">
                 <Container className="flex flex-1 items-center justify-between">
                     <Link className="flex gap-4 flex-row align-center justify-center" to="/">
-                        <img src={logoDark} alt="logo" className="w-8 h-8" />
+                        <img src={theme === "dark" ? logoDark : logoLight} alt="logo" className="w-8 h-8" />
                         <Typography.Serif className="text-xl font-semibold">
                             Haakon Svane
                         </Typography.Serif>

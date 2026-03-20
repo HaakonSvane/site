@@ -33,7 +33,6 @@ function App() {
                 <div className="flex flex-col">
                     <NavBar />
                     <Outlet />
-                    <div className="bg-red-300"></div>
                 </div>
                 <ScrollRestoration />
                 <Scripts />

@@ -25,7 +25,7 @@ export const SiteItemCard = ({ title, slug, leadImage, description }: SiteItemCa
                             className="w-12 h-12"
                         />
                     )}
-                    <Card.Description className="text-card-foreground">
+                    <Card.Description>
                         {description}
                     </Card.Description>
                 </Card.ContentRow>

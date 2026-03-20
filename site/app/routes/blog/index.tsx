@@ -19,8 +19,10 @@ export const loader = async () => {
 const Blog = () => {
     const { posts } = useLoaderData<typeof loader>();
     return (
-        <Container className="flex flex-1 flex-col gap-y-8">
-            <Typography.Serif className="text-4xl font-bold">Blog posts</Typography.Serif>
+        <Container className="flex flex-1 flex-col gap-y-8 py-12 md:py-16">
+            <div className="flex flex-col gap-2">
+                <Typography.Serif className="text-4xl font-bold">Blog posts</Typography.Serif>
+            </div>
             <div className="grid grid-cols-1 gap-6">
                 <Suspense
                     fallback={

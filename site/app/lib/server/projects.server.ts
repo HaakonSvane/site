@@ -16,7 +16,7 @@ export async function getProject(projectSlug: string) {
     ]);
 
     const { code } = await bundleMDX({
-        source: queryResponse?.description ?? "",
+        source: queryResponse?.intro ?? "",
         cwd: process.cwd(),
         esbuildOptions: options => {
             options.loader = {

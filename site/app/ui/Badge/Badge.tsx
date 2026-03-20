@@ -12,7 +12,7 @@ export const Badge = ({ title, LeadingIcon, TrailingIcon, className, ...rest }: 
         <div
             {...rest}
             className={tw(
-                "rounded-sm border bg-card text-card-foreground p-2 flex flex-row space-x-2 items-center",
+                "rounded-full border bg-card text-card-foreground px-3 py-1.5 flex flex-row space-x-1.5 items-center",
                 className,
             )}
         >

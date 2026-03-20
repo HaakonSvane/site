@@ -78,16 +78,9 @@ export default function Project() {
     );
 
     return (
-        <Container className="flex flex-1 flex-col gap-y-8">
+        <Container className="flex flex-1 flex-col gap-y-10 py-12 md:py-16">
             <Typography.Serif className="text-4xl font-bold">{project?.title}</Typography.Serif>
-            <div className="flex flex-row gap-x-4 items-center">
-                {/* {project.leadImage?.url && (
-                    <img
-                        src={project.leadImage.url}
-                        alt={project.leadImage?.title ?? "Project image"}
-                        className="w-16 h-16"
-                    />
-                )} */}
+            <div className="flex flex-row gap-x-3 items-center">
                 {project?.siteUrl && (
                     <Badge.Link LeadingIcon={Globe} title="Project site" href={project?.siteUrl} />
                 )}
@@ -95,7 +88,9 @@ export default function Project() {
                     <Badge.Link LeadingIcon={Github} title="GitHub" href={project?.githubUrl} />
                 )}
             </div>
-            <Component components={postComponents} />
+            <div className="w-full text-muted-foreground">
+                <Component components={postComponents} />
+            </div>
             <div className="flex flex-col gap-y-4">
                 <Typography.Serif className="text-2xl font-bold">Project posts</Typography.Serif>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

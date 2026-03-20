@@ -18,7 +18,7 @@ export const BadgeLink = ({
         <a
             {...rest}
             className={tw(
-                "rounded-sm border bg-card text-card-foreground p-2 flex flex-row space-x-2 items-center hover:bg-primary/5 transition-colors",
+                "rounded-full border bg-card text-card-foreground px-3 py-1.5 flex flex-row space-x-1.5 items-center hover:bg-primary/5 transition-colors",
                 className,
             )}
         >

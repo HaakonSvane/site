@@ -54,8 +54,8 @@ const ProjectPost = () => {
     const Component = useMemo(() => getMDXComponent(content), [content]);
 
     return (
-        <Container className="py-4">
-            <article>
+        <Container className="py-12 md:py-16">
+            <article className="mx-auto max-w-prose">
                 <Component components={postComponents} />
             </article>
         </Container>

@@ -10,7 +10,7 @@ import { Separator } from "./Separator";
 import { SideSheet } from "./SideSheet";
 import { ThemeButton } from "./ThemeButton";
 import { Typography } from "./Typography";
-import { useTheme } from "remix-themes";
+import { useTheme } from "~/lib/theme";
 
 export const NavBar = () => {
     const [theme] = useTheme();

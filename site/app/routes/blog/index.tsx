@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import { Await, MetaFunction, useLoaderData } from "react-router";
-import { getBlogPosts } from "~/lib/server/blogPost.server";
+import { getBlogPosts } from "~/lib/server/blog.server";
 import { Container } from "~/ui/Container";
 import { SiteItemCard, SiteItemCardSkeleton } from "~/ui/SiteItem";
 import { Typography } from "~/ui/Typography";

@@ -26,26 +26,28 @@
         "@vercel/speed-insights": "^2.0.0",
         "class-variance-authority": "^0.7.1",
         "clsx": "^2.1.1",
-        "esbuild": "^0.27.4",
         "groq": "^5.17.1",
         "isbot": "^5.1.36",
         "lucide-react": "^0.577.0",
-        "mdx-bundler": "^10.1.1",
+        "mdast": "^3.0.0",
         "react": "^19.2.4",
         "react-dom": "^19.2.4",
+        "react-markdown": "^10.1.0",
         "react-router": "^7.13.1",
         "rehype-highlight": "^7.0.2",
         "rehype-mathjax": "^7.1.0",
+        "rehype-raw": "^7.0.0",
         "remark-gfm": "^4.0.1",
         "remark-math": "^6.0.0",
-        "remix-themes": "^2.0.4",
-        "tailwind-merge": "^3.5.0"
+        "tailwind-merge": "^3.5.0",
+        "unist-util-visit": "^5.1.0"
     },
     "devDependencies": {
         "@haakonsvane/site-studio": "workspace:*",
         "@parcel/watcher": "^2.5.6",
         "@react-router/dev": "^7.13.1",
         "@tailwindcss/vite": "^4.2.2",
+        "@types/mdast": "^4.0.4",
         "@types/react": "^19.2.14",
         "@types/react-dom": "^19.2.3",
         "@typescript-eslint/eslint-plugin": "^8.57.1",
@@ -62,6 +64,6 @@
         "vite": "^8.0.1"
     },
     "engines": {
-        "node": ">=20.0.0"
+        "node": ">=22.0.0"
     }
 }

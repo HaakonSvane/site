@@ -1,5 +1,5 @@
 import type { MetaFunction } from "react-router";
-import { useTheme } from "remix-themes";
+import { useTheme } from "~/lib/theme";
 import { Container } from "~/ui/Container";
 import { Typography } from "~/ui/Typography";
 import logoLight from "/logo-light.svg?url";

@@ -1,10 +1,11 @@
 import { Github, Globe } from "lucide-react";
-import { getMDXComponent } from "mdx-bundler/client/index.js";
-import { useMemo } from "react";
 import { LoaderFunctionArgs, MetaFunction, data, useLoaderData } from "react-router";
-import { postComponents } from "~/lib/postComponents";
+import ReactMarkdown from "react-markdown";
+import { markdownComponents } from "~/lib/mdx/components";
+import { remarkPlugins, rehypePlugins } from "~/lib/mdx/plugins";
 import { getProject, getProjectPosts } from "~/lib/server/projects.server";
 import { JsonErrorResponsePayload } from "~/lib/utility/errorResponse";
+import { PostErrorBoundary } from "~/ui/PostErrorBoundary";
 import { Badge } from "~/ui/Badge";
 import { Container } from "~/ui/Container";
 import { SiteItemCard } from "~/ui/SiteItem";
@@ -71,12 +72,6 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
 
 export default function Project() {
     const { project, projectPosts } = useLoaderData<typeof loader>();
-    // const navigation = useNavigation(); // TODO: use this to tap in to the loading state of the page / next page
-    const Component = useMemo(
-        () => getMDXComponent(project?.description ?? ""),
-        [project?.description],
-    );
-
     return (
         <Container className="flex flex-1 flex-col gap-y-10 py-12 md:py-16">
             <Typography.Serif className="text-4xl font-bold">{project?.title}</Typography.Serif>
@@ -89,7 +84,13 @@ export default function Project() {
                 )}
             </div>
             <div className="w-full text-muted-foreground">
-                <Component components={postComponents} />
+                <ReactMarkdown
+                    components={markdownComponents}
+                    remarkPlugins={remarkPlugins}
+                    rehypePlugins={rehypePlugins}
+                >
+                    {project?.intro ?? ""}
+                </ReactMarkdown>
             </div>
             <div className="flex flex-col gap-y-4">
                 <Typography.Serif className="text-2xl font-bold">Project posts</Typography.Serif>
@@ -115,3 +116,5 @@ export default function Project() {
         </Container>
     );
 }
+
+export const ErrorBoundary = PostErrorBoundary;

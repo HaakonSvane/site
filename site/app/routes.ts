@@ -2,7 +2,6 @@ import { index, prefix, route, type RouteConfig } from "@react-router/dev/routes
 
 export default [
     index("routes/landing.tsx"),
-    route("action/setTheme", "routes/action.setTheme.ts"),
     ...prefix("projects", [
         index("routes/projects/index.tsx"),
         route(":project", "routes/projects/project.tsx"),

@@ -12,7 +12,7 @@ export const Serif = <TElem extends ElementType = "p">({
 }: SerifProps<TElem>) => {
     const Component = as ?? "p";
     return (
-        <Component {...rest} className={tw("text-text font-heading transition-color", className)} />
+        <Component {...rest} className={tw("text-foreground font-heading transition-color", className)} />
     );
 };
 

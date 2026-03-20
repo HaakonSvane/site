@@ -1,9 +1,8 @@
-import { getMDXComponent } from "mdx-bundler/client";
+import type { Components } from "react-markdown";
 import { Typography } from "~/ui/Typography";
-import { tw } from "./utility";
+import { tw } from "~/lib/utility";
 
-type MDXComponent = NonNullable<Parameters<ReturnType<typeof getMDXComponent>>[0]["components"]>;
-export const postComponents: MDXComponent = {
+export const markdownComponents: Components = {
     h1: props => (
         <Typography.Serif
             className={tw(
@@ -87,7 +86,6 @@ export const postComponents: MDXComponent = {
     small: props => (
         <small className={tw("text-sm font-medium leading-none", props.className)} {...props} />
     ),
-    svg: props => <svg className={tw("inline", props.className)} {...props} />,
     img: props => (
         <img
             alt="[missing alt]"
